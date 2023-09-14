@@ -1,5 +1,5 @@
 let apiURL = "../data/Pokemones.json";
-let apiURL_tipo = "../data/Tipo_pokemones.json";
+let apiURL_tipo = "../data/Tipo.json";
 
 let pokemones = [];
 let tiposPokemon = [];
@@ -10,7 +10,7 @@ async function getEventsData(){
     const respuesta2 = await fetch(apiURL_tipo);
     tiposPokemon = await respuesta2.json();
 	if(document.title == "Details") crearDetails();
-    else pokemones.forEach(pokemon => crearTrajeta(pokemon));
+    else if(document.title == "Home")pokemones.forEach(pokemon => crearTrajeta(pokemon));
 	//else generarFiltros();
 }
 
@@ -51,8 +51,7 @@ function crearTrajeta(pokemon) {
 	card.classList.add("card","border-0");
 	card.id = pokemon.id;
 	card.innerHTML = `
-
-    <img class="card-img-top w-100" id="img_card" src="${pokemon.imagen}" alt="${pokemon.nombre}">
+    <img class="card-img-top w-100" id="img_card" src="./imagenes/${pokemon.imagen}" alt="${pokemon.nombre}">
             <div class="card-body d-flex flex-column justify-content-between">
                 <h5 class="card-title">${pokemon.nombre}</h5>
                 <p class="card-text">
@@ -91,7 +90,7 @@ function crearDetails(){
     
     contenedor.innerHTML = `
     <div class="card border-0" id="card_details2">
-        <img id="card_details_img" src=${pokemon.imagen} class="card-img-top" alt="...">
+        <img id="card_details_img" src="./imagenes/${pokemon.imagen}" class="card-img-top" alt="...">
         <div class="card-body p-5 " id="card-body_d">
             <div id="titulo_details" class="d-flex justify-content-between align-items-flex-start">
                 <h5 class="card-title">${pokemon.nombre}</h5>

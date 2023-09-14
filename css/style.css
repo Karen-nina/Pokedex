@@ -120,7 +120,7 @@ input#input_search {
 main>div.titulo_filtros>div#div_filtros label {
     padding: 0 10px;
 }
-#ordenar, #tipoPokemon, #input_search{
+#ordenar, #tipoPokemon, #input_search, #select_tipo{
     width: 200px;
 }
 
@@ -231,7 +231,7 @@ img#card_details_img {
 
 
 
-/*STATS*/
+/*Tabla*/
 table td{
     text-align: center;
 }
@@ -258,13 +258,28 @@ td{
 }
 
 
-/*CONTACT*/
-form#formulario_contact {
+/*formulario*/
+form#ingreso {
+    display: flex;
+    flex-direction: column;
     background-color: rgb(255, 255, 255);
     justify-content: center;
     padding: 50px 25%;
-    gap: 10px;
+    gap: 20px;
+    width: 50%;
+    border-radius: 10px;
 }
+
+main#ingreso{
+    display: flex;
+    height:100vh;
+    background-image: url(../imagenes/imagen1.png);
+    background-size: cover;
+}
+
+
+
+
 
 
 @media (max-width: 1400px) {
@@ -361,6 +376,18 @@ form#formulario_contact {
 
     h1#encabezado {
         top: 350px;
+    }
+
+    form{
+        height: auto;
+        width: 75%;
+        background-color: rgb(255, 255, 255);
+        border-radius: 10px;
+    }
+
+    main#ingreso{
+        justify-content: center;
+        align-items: center;
     }
 }
 
