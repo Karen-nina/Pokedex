@@ -5,6 +5,24 @@
 :root{
     --color-principal: rgb(202, 30, 30); 
     --color-gris: rgb(203, 203, 203);
+    --tipo-agua: #6890F0;
+    --tipo-fuego: #F08030;
+    --tipo-planta: #78C850;
+    --tipo-electrico: #F8D030;
+    --tipo-hielo: #98D8D8;
+    --tipo-lucha: #C03028;
+    --tipo-veneno: #A040A0;
+    --tipo-tierra: #E0C068;
+    --tipo-volador: #A890F0;
+    --tipo-psiquico: #F85888;
+    --tipo-bicho: #A8B820;
+    --tipo-roca: #B8A038;
+    --tipo-fantasma: #705898;
+    --tipo-acero: #B8B8D0;
+    --tipo-dragon: #7038F8;
+    --tipo-siniestro: #705848;
+    --tipo-hada: #EE99AC;
+    
 }
 body{
     background-image: url(../imagenes/patron.jpg);
@@ -103,31 +121,21 @@ h1#encabezado {
 }
 
 /*FILTROS*/
-main>div.titulo_filtros>div#div_filtros {
+form#filtros{
     justify-content: center;
-    padding: 20px 100px;
-    gap: 20px;
+    gap: 10px;
+    padding: 20px;
 }
 
-main>div.titulo_filtros>div#div_filtros div {
-    padding: 0 10px;
-}
 
-input#input_search {
-    width: 800px;
-}
-
-main>div.titulo_filtros>div#div_filtros label {
-    padding: 0 10px;
-}
 #ordenar, #tipoPokemon, #input_search, #select_tipo{
     width: 200px;
 }
 
 /*TARJETAS*/
 #mensaje_eventos {
-    background-color: #f6eef1;
-    color: #b86c88;
+    background-color: #00000018;
+    color: #ffffff;
     padding: 110px 0;
     margin: 5%;
     margin-bottom: 10%;
@@ -203,6 +211,124 @@ span.spanTipo{
     border: 4px solid rgb(34, 159, 187);
 }
 
+#mensaje_notFound{
+    width: 800px;
+    border-radius: 20px;
+    object-fit: cover;
+    height: 450px;
+    margin: 2% 0 6%;
+}
+
+#subtitulo{
+    color: rgb(195, 195, 195);
+}
+.tipos_de_pokemon{
+    display: flex;
+    padding: 1px;
+    align-items: center;
+    gap: 5px;
+    border-radius: 100px;
+
+    font-weight: 500;
+    padding:2px 18px 2px 4px;
+}
+
+.Rojo{
+    border: 2px solid var(--tipo-fuego);
+    color: var(--tipo-fuego);
+}
+
+.Agua{
+    border: 2px solid var(--tipo-agua);
+    color: var(--tipo-agua);
+}
+
+.Fuego{
+    border: 2px solid var(--tipo-fuego);
+    color: var(--tipo-fuego);
+}
+
+.Planta{
+    border: 2px solid var(--tipo-planta);
+    color: var(--tipo-planta);
+}
+
+.Electrico{
+    border: 2px solid var(--tipo-electrico);
+    color: var(--tipo-electrico);
+}
+
+.Hielo{
+    border: 2px solid var(--tipo-hielo);
+    color: var(--tipo-hielo);
+}
+
+.Lucha{
+    border: 2px solid var(--tipo-lucha);
+    color: var(--tipo-lucha);
+}
+
+.Veneno{
+    border: 2px solid var(--tipo-veneno);
+    color: var(--tipo-veneno);
+}
+
+.Tierra{
+    border: 2px solid var(--tipo-tierra);
+    color: var(--tipo-tierra);
+}
+
+.Volador{
+    border: 2px solid var(--tipo-volador);
+    color: var(--tipo-volador);
+}
+
+.Psiquico{
+    border: 2px solid var(--tipo-psiquico);
+    color: var(--tipo-psiquico);
+}
+
+.Bicho{
+    border: 2px solid var(--tipo-bicho);
+    color: var(--tipo-bicho);
+}
+
+.Roca{
+    border: 2px solid var(--tipo-roca);
+    color: var(--tipo-roca);
+}
+
+.Fantasma{
+    border: 2px solid var(--tipo-fantasma);
+    color: var(--tipo-fantasma);
+}
+
+.Acero{
+    border: 2px solid var(--tipo-acero);
+    color: var(--tipo-acero);
+}
+
+.Dragon{
+    border: 2px solid var(--tipo-dragon);
+    color: var(--tipo-dragon);
+}
+
+.Siniestro{
+    border: 2px solid var(--tipo-siniestro);
+    color: var(--tipo-siniestro);
+}
+
+.Hada{
+    border: 2px solid var(--tipo-hada);
+    color: var(--tipo-hada);
+}
+
+
+.img_tipos_de_pokemon{
+    width: 25px;
+    height: 25px;
+
+}
 
 /*DETAILS*/
 main#main_details {
@@ -232,6 +358,10 @@ img#card_details_img {
 
 
 /*Tabla*/
+table#tablaBS{
+    width: 100px;
+    background-color: #b86c88;
+}
 table td{
     text-align: center;
 }
@@ -307,15 +437,6 @@ main#ingreso{
     #card-body_d {
         margin-top:0;
     }
-
-    #img_card {
-        height: 250px;
-        object-fit: cover;
-        object-position: center;
-        position: absolute;
-        bottom: 0;
-    }
-
 }
 
 @media (max-width: 1200px) {

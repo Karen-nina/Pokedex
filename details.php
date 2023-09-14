@@ -33,9 +33,10 @@
     </header>
 
     <main id="main_details">
-        <div id="card_details">
-
-        </div>
+    <?php
+            include_once "./php/main.php";
+            generarDetails($pokemones,$tipos, $pokemones_tipos);
+            ?>
     </main>
 
     <footer id="footer_absolute" class="footer pt-3 text-center">
@@ -49,7 +50,7 @@
             </p>
     </footer>
 
-    <script src="./js/main.js"></script>
+    
 </body>
 
 </html>

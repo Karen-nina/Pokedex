@@ -40,58 +40,61 @@
         <div class="titulo_filtros pt-5">
             <h1 id="encabezado">Busca un pokemon por su nombre</h1>
 
-            <div id="div_filtros" class="d-flex align-items-center ">
-                <!-- <div class="w-75" id="div_filtros_div">
-                </div> -->
-                <form method="post" action="filtro.php">
-                    <select name="tipoPokemon" onchange="this.form.submit()" class="form-control" id="select_tipo">
-                    <option selected="true" disabled="disabled">Filtrar por tipo</option>
-                    <option value="Agua">Agua</option>
-                    <option value="Fuego">Fuego</option>
-                    <option value="Planta">Planta</option>
-                    <option value="Eléctrico">Electrico</option>
-                    <option value="Hielo">Hielo</option>
-                    <option value="Lucha">Lucha</option>
-                    <option value="Veneno">Veneno</option>
-                    <option value="Tierra">Tierra</option>
-                    <option value="Volador">Volador</option>
-                    <option value="Psíquico">Psiquico</option>
-                    <option value="Bicho">Bicho</option>
-                    <option value="Roca">Roca</option>
-                    <option value="Fantasma">Fantasma</option>
-                    <option value="Acero">Acero</option>
-                    <option value="Dragón">Dragon</option>
-                    <option value="Siniestro">Siniestro</option>
-                    <option value="Hada">Hada</option>
-                </select>
-                </form>
-                <select id="ordenar" class="form-control">
+            <form method="POST" action="" id="filtros" class="d-flex align-items-center w-100 ">
+                
+                    <select name="tipoPokemon" class="form-control" id="select_tipo">
+                        <option selected="true" disabled="disabled">Filtrar por tipo</option>
+                        <option value="Agua">Agua</option>
+                        <option value="Fuego">Fuego</option>
+                        <option value="Planta">Planta</option>
+                        <option value="Electrico">Electrico</option>
+                        <option value="Hielo">Hielo</option>
+                        <option value="Lucha">Lucha</option>
+                        <option value="Veneno">Veneno</option>
+                        <option value="Tierra">Tierra</option>
+                        <option value="Volador">Volador</option>
+                        <option value="Psiquico">Psiquico</option>
+                        <option value="Bicho">Bicho</option>
+                        <option value="Roca">Roca</option>
+                        <option value="Fantasma">Fantasma</option>
+                        <option value="Acero">Acero</option>
+                        <option value="Dragon">Dragon</option>
+                        <option value="Normal">Normal</option>
+                        <option value="Hada">Hada</option>
+                    </select>
+                
+                <select name="ordenar" id="ordenar" class="form-control">
                     <option value="mayor">Mayor a menor N°</option>
                     <option value="menor">Menor a mayor N°</option>
                     <option value="ascendente">A --- Z</option>
                     <option value="descendente">Z --- A</option>
                 </select>
                 <nav class="navbar navbar-light bg-light p-0">
-                    <form class="d-flex" id="form_busqueda" action="">
-                        <input id="input_search" class="form-control mr-sm-2" type="search" placeholder="Buscar"
+                        <input id="input_search" name="input_search" class="form-control w-100 mr-sm-2" type="search" placeholder="Buscar"
                             aria-label="Search">
-                        <button id="boton_busqueda" class="btn my-2 my-sm-0" type="submit">
-                            Search
-                        </button>
-                    </form>
+                
                 </nav>
-            </div>
+                <button id="boton_busqueda" class="btn" type="submit">Filtrar </button>
+            </form>
 
         </div>
 
 
 
         <section id="section_cards" class="d-flex justify-content-center py-5 border-0 cards_home">
+            <?php
+            include_once "./php/main.php";
+            if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+                generarTarjetas($pokemones, $tipos,  $pokemones_tipos);
+            }else{
+                include_once "./php/aplicarFiltros.php";
+            }
+            ?>
         </section>
     </main>
 
 
-    <footer  class="footer pt-3 text-center">
+    <footer class="footer pt-3 text-center">
         <p class="w-100">
             Programacion web II - Proyecto grupal Pokedex <br>
             Rocio Belen Crespo -
@@ -102,7 +105,7 @@
         </p>
     </footer>
 
-    <script src="./js/main.js"></script>
+    <!-- <script src="./js/main.js"></script> -->
 </body>
 
 </html>
