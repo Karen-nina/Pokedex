@@ -85,7 +85,7 @@
             <?php
             include_once "./php/main.php";
             if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-                generarTarjetas($pokemones);
+                generarTarjetas($pokemones, $tipos,  $pokemones_tipos);
             }else{
                 include_once "./php/aplicarFiltros.php";
             }

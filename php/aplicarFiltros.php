@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST["tipoPokemon"])) {
         $tipoPokemon = $_POST["tipoPokemon"];
         
-        $buscarTipoPorId = buscarTipoPorNombre($tipos, $tipoPokemon);
+        $buscarTipoPorId = buscarTipo($tipos,'tipo' ,$tipoPokemon);
 
         $resultado = obtenerPokemonPorTipo($buscarTipoPorId, $pokemones_tipos, $pokemones);
     }
@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (empty($resultado)) {
         ?><img src="./imagenes/mensaje.jpg" alt="" id="mensaje_notFound"><?php
     } else {
-        generarTarjetas($resultado);
+        generarTarjetas($resultado,$tipos, $pokemones_tipos);
     }
 }
 

@@ -35,7 +35,7 @@
     <main id="main_details">
     <?php
             include_once "./php/main.php";
-            generarDetails($pokemones);
+            generarDetails($pokemones,$tipos, $pokemones_tipos);
             ?>
     </main>
 
