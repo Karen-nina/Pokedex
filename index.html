@@ -43,26 +43,28 @@
             <div id="div_filtros" class="d-flex align-items-center ">
                 <!-- <div class="w-75" id="div_filtros_div">
                 </div> -->
-                <select id="tipoPokemon" class="form-control" aria-placeholder="hola">
-                    <option value="Agua">Filtrar por tipo</option>
+                <form method="post" action="filtro.php">
+                    <select name="tipoPokemon" onchange="this.form.submit()" class="form-control" id="select_tipo">
+                    <option selected="true" disabled="disabled">Filtrar por tipo</option>
                     <option value="Agua">Agua</option>
                     <option value="Fuego">Fuego</option>
                     <option value="Planta">Planta</option>
-                    <option value="Eléctrico">Eléctrico</option>
+                    <option value="Eléctrico">Electrico</option>
                     <option value="Hielo">Hielo</option>
                     <option value="Lucha">Lucha</option>
                     <option value="Veneno">Veneno</option>
                     <option value="Tierra">Tierra</option>
                     <option value="Volador">Volador</option>
-                    <option value="Psíquico">Psíquico</option>
+                    <option value="Psíquico">Psiquico</option>
                     <option value="Bicho">Bicho</option>
                     <option value="Roca">Roca</option>
                     <option value="Fantasma">Fantasma</option>
                     <option value="Acero">Acero</option>
-                    <option value="Dragón">Dragón</option>
+                    <option value="Dragón">Dragon</option>
                     <option value="Siniestro">Siniestro</option>
                     <option value="Hada">Hada</option>
                 </select>
+                </form>
                 <select id="ordenar" class="form-control">
                     <option value="mayor">Mayor a menor N°</option>
                     <option value="menor">Menor a mayor N°</option>
