@@ -1,6 +1,6 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
+function aplicarFiltros($pokemones, $tipos, $pokemones_tipos){
     $resultado = $pokemones; // Inicialmente, $resultado contiene todos los Pokémon
 
     if (isset($_POST["tipoPokemon"])) {
@@ -16,11 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $resultado = filtrarPorNombre($busqueda, $resultado);
     }
 
-    if (empty($resultado)) {
-        ?><img src="./imagenes/mensaje.jpg" alt="" id="mensaje_notFound"><?php
-    } else {
-        generarTarjetas($resultado,$tipos, $pokemones_tipos);
-    }
+    return $resultado;
+
 }
 
 function filtrarPorNombre($busqueda, $pokemones) {
