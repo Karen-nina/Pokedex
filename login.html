@@ -18,85 +18,31 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    <title>Home</title>
+    <title>SingIn</title>
 </head>
 
 <body>
-    <header class="d-flex bd-highlight " id="header">
-        <div class="div_logo">
-            <img id="logo" src="./imagenes/logo2.png" alt="logo">
-        </div>
-        <nav class="d-flex w-100 " id="nav_heder">
-            <a href="./login.html">Iniciar sesion</a>
-            <a href="./singin.html">Registrarse</a>
-        </nav>
-        <!-- <nav class="d-flex" id="nav_heder2">
-            <img src="./imagenes/profile.png" class="" id="img_perfil">
-            <span>Rocio Crespo <br> rociocrespo200</span>
-        </nav> -->
-    </header>
 
-    <main>
-        <section class="vh-50" style="background-color: white;">
-            <div class="container py-5 h-10">
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col col-xl-10">
-                        <div class="card" style="border-radius: 1rem; box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);">
-                            <div class="row g-0">
-                                <div class="col-md-6 col-lg-5 d-none d-md-block">
-                                    <img src="../imagenes/logeo.jpg" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
-                                </div>
-                                <div class="col-md-6 col-lg-7 d-flex align-items-center">
-                                    <div class="card-body p-4 p-lg-5 text-black">
-    
-                                        <form>
-    
-                                            <div class="d-flex align-items-center mb-3 pb-1">
-                                                <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
-                                                <span class="h1 fw-bold mb-0">Pokedex</span>
-                                            </div>
-    
-                                            <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Inicia sesión</h5>
-    
-                                            <div class="form-outline mb-4">
-                                                <input type="text" id="form2Example17" class="form-control form-control-lg" name="usuario" required/>
-                                                <label class="form-label" for="form2Example17">Nombre de usuario</label>
-                                            </div>
-    
-                                            <div class="form-outline mb-4">
-                                                <input type="password" id="form2Example27" class="form-control form-control-lg" name="clave" required/>
-                                                <label class="form-label" for="form2Example27">Clave</label>
-                                            </div>
-    
-                                            <div class="pt-1 mb-4">
-                                                <button class="btn btn-dark btn-lg btn-block" type="button">Ingresar</button>
-                                            </div>
-    
-                                        </form>
-    
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <main id="ingreso">
+        <form class=" p-5" id="ingreso">
+            <div class="titulo_form">
+                <h2>Ingresa a tu cuenta</h2>
+                <cite title="Source Title">Si no tienes una cuenta <a  href="./singin.html">Registrate</a> o vuelve a <a href="./index.php">inicio</a></cite>
             </div>
-        </section>
+        
+            <div class="form">
+                <input type="text" class="form-control" placeholder="Ingre su usuario">
+            </div>
+            <div class="form">
+                <input type="password" class="form-control" placeholder="Ingrese contraseña">
+            </div>
+            
+            <button type="submit" class="btn btn-outline-info w-100">Registrarse</button>
+            <cite title="Source Title">* Al registrarse acepta los terminos y condiciones de la empresa, asi como el uso de cockies</cite>
+        </form>
+
     </main>
 
-
-    <footer  class="footer pt-3 text-center">
-        <p class="w-100">
-            Programacion web II - Proyecto grupal Pokedex <br>
-            Rocio Belen Crespo -
-            Karen NIna Coela -
-            Duilio Martin Rubio -
-            Rocio crespo <br>
-            © UNLaM 2018 v2.1.0. Todos los derechos reservados.
-        </p>
-    </footer>
-
-    <script src="./js/main.js"></script>
 </body>
 
 </html>
