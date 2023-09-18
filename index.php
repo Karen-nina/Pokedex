@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+session_start();
     if (!$_GET) header('Location: index.php?pagina=1');
+    include_once "./php/main.php";
+    include_once "./php/paginacion.php";
+    include_once "./php/aplicarFiltros.php";
     ?>
 
 <head>
@@ -49,24 +53,24 @@
             <form method="POST" action="" id="filtros" class="d-flex align-items-center w-100 ">
 
                 <select name="tipoPokemon" class="form-control" id="select_tipo">
-                    <option selected="true" disabled="disabled">Filtrar por tipo</option>
-                    <option value="Agua">Agua</option>
-                    <option value="Fuego">Fuego</option>
-                    <option value="Planta">Planta</option>
-                    <option value="Electrico">Electrico</option>
-                    <option value="Hielo">Hielo</option>
-                    <option value="Lucha">Lucha</option>
-                    <option value="Veneno">Veneno</option>
-                    <option value="Tierra">Tierra</option>
-                    <option value="Volador">Volador</option>
-                    <option value="Psiquico">Psiquico</option>
-                    <option value="Bicho">Bicho</option>
-                    <option value="Roca">Roca</option>
-                    <option value="Fantasma">Fantasma</option>
-                    <option value="Acero">Acero</option>
-                    <option value="Dragon">Dragon</option>
-                    <option value="Normal">Normal</option>
-                    <option value="Hada">Hada</option>
+                    <option value="all" <?php echo (isset($_POST["tipoPokemon"]) && $_POST['tipoPokemon'] == "all")? 'selected' : ""?>>Todos los tipos</option>
+                    <option value="Agua" <?php echo (isset($_POST["tipoPokemon"]) && $_POST['tipoPokemon'] == "Agua")? 'selected' : ""?>>Agua</option>
+                    <option value="Fuego" <?php echo (isset($_POST["tipoPokemon"]) && $_POST['tipoPokemon'] == "Fuego")? 'selected' : ""?>>Fuego</option>
+                    <option value="Planta" <?php echo (isset($_POST["tipoPokemon"]) && $_POST['tipoPokemon'] == "Planta")? 'selected' : ""?>>Planta</option>
+                    <option value="Electrico" <?php echo (isset($_POST["tipoPokemon"]) && $_POST['tipoPokemon'] == "Electrico")? 'selected' : ""?>>Electrico</option>
+                    <option value="Hielo" <?php echo (isset($_POST["tipoPokemon"]) && $_POST['tipoPokemon'] == "Hielo")? 'selected' : ""?>>Hielo</option>
+                    <option value="Lucha" <?php echo (isset($_POST["tipoPokemon"]) && $_POST['tipoPokemon'] == "Lucha")? 'selected' : ""?>>Lucha</option>
+                    <option value="Veneno" <?php echo (isset($_POST["tipoPokemon"]) && $_POST['tipoPokemon'] == "Veneno")? 'selected' : ""?>>Veneno</option>
+                    <option value="Tierra" <?php echo (isset($_POST["tipoPokemon"]) && $_POST['tipoPokemon'] == "Tierra")? 'selected' : ""?>>Tierra</option>
+                    <option value="Volador" <?php echo (isset($_POST["tipoPokemon"]) && $_POST['tipoPokemon'] == "Volador")? 'selected' : ""?>>Volador</option>
+                    <option value="Psiquico" <?php echo (isset($_POST["tipoPokemon"]) && $_POST['tipoPokemon'] == "Psiquico")? 'selected' : ""?>>Psiquico</option>
+                    <option value="Bicho" <?php echo (isset($_POST["tipoPokemon"]) && $_POST['tipoPokemon'] == "Bicho")? 'selected' : ""?>>Bicho</option>
+                    <option value="Roca" <?php echo (isset($_POST["tipoPokemon"]) && $_POST['tipoPokemon'] == "Roca")? 'selected' : ""?>>Roca</option>
+                    <option value="Fantasma" <?php echo (isset($_POST["tipoPokemon"]) && $_POST['tipoPokemon'] == "Fantasma")? 'selected' : ""?>>Fantasma</option>
+                    <option value="Acero" <?php echo (isset($_POST["tipoPokemon"]) && $_POST['tipoPokemon'] == "Acero")? 'selected' : ""?>>Acero</option>
+                    <option value="Dragon" <?php echo (isset($_POST["tipoPokemon"]) && $_POST['tipoPokemon'] == "Dragon")? 'selected' : ""?>>Dragon</option>
+                    <option value="Normal" <?php echo (isset($_POST["tipoPokemon"]) && $_POST['tipoPokemon'] == "Normal")? 'selected' : ""?>>Normal</option>
+                    <option value="Hada" <?php echo (isset($_POST["tipoPokemon"]) && $_POST['tipoPokemon'] == "Hada")? 'selected' : ""?>>Hada</option>
                 </select>
 
                 <select name="ordenar" id="ordenar" class="form-control">
@@ -82,35 +86,32 @@
 
                 <button id="boton_busqueda" class="btn" type="submit">Filtrar </button>
             </form>
-
         </div>
-
-
 
         <section id="section_cards" class="d-flex justify-content-center  border-0 cards_home">
             <?php
-            include_once "./php/main.php";
-            include_once "./php/paginacion.php";
-            //------------------
-            $pokemonesParaMostrar = $pokemones;
             
-
             if ($_SERVER["REQUEST_METHOD"] === "POST") {
-                include_once "./php/aplicarFiltros.php";
                 $pokemonesParaMostrar = aplicarFiltros($pokemones, $tipos, $pokemones_tipos);
-            }
-
-            if(sizeof($pokemonesParaMostrar) == 0){
-                ?> <div class="w-100"><img src="./imagenes/mensaje.jpg" alt="" class="mensaje d-block w-100"></div><?php
+                $_SESSION['filtros'] = $pokemonesParaMostrar;
+            } elseif (isset($_SESSION['filtros'])) {
+                $pokemonesParaMostrar = $_SESSION['filtros'];
+            } else {
                 $pokemonesParaMostrar = $pokemones;
             }
-            $pokemonesParaMostrar = aplicarPaginacion($pokemonesParaMostrar);
+            if(sizeof($pokemonesParaMostrar) == 0){
+                ?> <div class="w-100 text-center p-5 m-5"><img src="./imagenes/mensaje.jpg" alt=""></div><?php
+                $pokemonesParaMostrar = $pokemones;
+            }
+            $elementosPorPagina = 10;
+            $cantidadDePaginas = floor(sizeof($pokemonesParaMostrar) / $elementosPorPagina);
+            $pokemonesParaMostrar = aplicarPaginacion($pokemonesParaMostrar, $elementosPorPagina);
             generarTarjetas($pokemonesParaMostrar,$tipos,$pokemones_tipos);
             ?>
         </section>
-            <nav aria-label="Page navigation example">
+            <nav aria-label="Page navigation example" <?php echo ($cantidadDePaginas + 1 == 1)? 'style="display: none;"' : ""?>>
                 <ul class="pagination  gradient-background mb-5">
-                    <li class="page-item2">
+                    <li class="page-item2 " <?php echo ($_GET['pagina'] == 1)? 'style="display: none;"' : ""?>>
                         <a class="page-link" href="./index.php?pagina=<?php echo $_GET['pagina'] - 1?>" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">Previous</span>
@@ -118,10 +119,13 @@
                     </li>
 
                     <li class="page-item" <?php echo ($_GET['pagina'] == 1)? 'style="display: none;"' : ""?>>
-                        <a class="page-link" href="./index.php?pagina=<?php echo ($_GET['pagina'] == 1) - 1?>"><?php echo $_GET['pagina'] - 1?></a></li>
-                    <li class="page-item"><a class="page-link" href="./index.php?pagina=<?php echo $_GET['pagina']?>"><?php echo $_GET['pagina']?></a></li>
-                    <li class="page-item"><a class="page-link" href="./index.php?pagina=<?php echo $_GET['pagina'] + 1?>"><?php echo $_GET['pagina'] + 1?></a></li>
-                    <li class="page-item2">
+                        <a class="page-link" href="./index.php?pagina=<?php echo $_GET['pagina'] - 1?>"><?php echo $_GET['pagina'] - 1?></a></li>
+                    <li class="page-item" >
+                        <a class="page-link" href="./index.php?pagina=<?php echo $_GET['pagina']?>"><?php echo $_GET['pagina']?></a></li>
+                    <li class="page-item" <?php echo ($_GET['pagina'] == $cantidadDePaginas+1)? 'style="display: none;"' : ""?>>
+                        <a class="page-link" href="./index.php?pagina=<?php echo $_GET['pagina'] + 1?>"><?php echo $_GET['pagina'] + 1?></a></li>
+                    
+                    <li class="page-item2" <?php echo ($_GET['pagina'] == $cantidadDePaginas+1)? 'style="display: none;"' : ""?>>
                         <a class="page-link" href="./index.php?pagina=<?php echo $_GET['pagina'] + 1?>" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                             <span class="sr-only">Next</span>

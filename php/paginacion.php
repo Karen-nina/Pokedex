@@ -1,7 +1,6 @@
 <?php
-function aplicarPaginacion($pokemones){
-    
-    $elementosPorPagina = 20;
+
+function aplicarPaginacion($pokemones, $elementosPorPagina){
     $resultado = array();
     $paginaActual = intval($_GET['pagina']);
     $inicio = ($paginaActual -1)*$elementosPorPagina;
@@ -18,3 +17,4 @@ function aplicarPaginacion($pokemones){
 
     return $resultado;
 }
+
