@@ -3,16 +3,16 @@
 function aplicarFiltros($pokemones, $tipos, $pokemones_tipos){
     $resultado = $pokemones; // Inicialmente, $resultado contiene todos los Pokémon
 
-    if (isset($_POST["tipoPokemon"])) {
+    if (isset($_POST["tipoPokemon"]) && $_POST["tipoPokemon"] != 'all') {
         $tipoPokemon = $_POST["tipoPokemon"];
-        
+
         $buscarTipoPorId = buscarTipo($tipos,'tipo' ,$tipoPokemon);
 
         $resultado = obtenerPokemonPorTipo($buscarTipoPorId, $pokemones_tipos, $pokemones);
     }
     if (isset($_POST["input_search"])) {
         $busqueda = $_POST["input_search"];
-        // Filtrar por nombre del Pokémon
+
         $resultado = filtrarPorNombre($busqueda, $resultado);
     }
 
