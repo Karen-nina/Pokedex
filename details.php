@@ -28,7 +28,7 @@
         </div>
         <nav class="d-flex w-100 " id="nav_heder">
             <a href="./login.html">Iniciar sesion</a>
-            <a href="./singin.html">Registrarse</a>
+            <a href="singin.php">Registrarse</a>
         </nav>
     </header>
 
