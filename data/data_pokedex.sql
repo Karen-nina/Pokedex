@@ -1,40 +1,5 @@
 CREATE DATABASE IF NOT EXISTS pokedex;
 USE pokedex;
-DROP TABLE Pokemon_Tipo;
-DROP TABLE Tipo;
-DROP TABLE Pokemon;
-
-CREATE TABLE Pokemon 
-(
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    nro	INT,
-    imagen	VARCHAR(512),
-    nombre	VARCHAR(512),
-    ps	INT,
-    ataque	INT,
-    defensa	INT,
-    at_especial	INT,
-    def_especial	INT,
-    velocidad	INT,
-    informacion TEXT
-);
-CREATE TABLE Pokemon_Tipo (
-    id_pokemon INT,
-    id_tipo INT,
-    FOREIGN KEY (id_pokemon) REFERENCES Pokemon(id),
-    FOREIGN KEY (id_tipo) REFERENCES Tipo(id)
-);
-
-CREATE TABLE IF NOT EXISTS Tipo ( 
-	id INT AUTO_INCREMENT PRIMARY KEY, 
-	tipo VARCHAR(255) NOT NULL,
-    icon VARCHAR(255) NOT NULL);
-    
-    SELECT * 
-    FROM Pokemon AS P
-    JOIN Pokemon_Tipo AS v ON v.id_pokemon = p.id
-    JOIN Tipo AS t ON v.id_tipo = t.id;
-  
  INSERT INTO Tipo (tipo, icon) VALUES
 	('Planta', 'Planta.png'),
 	('Fuego', 'Fuego.png'),
@@ -306,3 +271,38 @@ INSERT INTO Pokemon_Tipo (id_pokemon, id_tipo) VALUES
 	('93', '7'),
 	('94', '7'),
 	('95', '9');
+
+DROP TABLE Pokemon_Tipo;
+DROP TABLE Tipo;
+DROP TABLE Pokemon;
+
+CREATE TABLE Pokemon
+(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nro	INT,
+    imagen	VARCHAR(512),
+    nombre	VARCHAR(512),
+    ps	INT,
+    ataque	INT,
+    defensa	INT,
+    at_especial	INT,
+    def_especial	INT,
+    velocidad	INT,
+    informacion TEXT
+);
+CREATE TABLE Pokemon_Tipo (
+                              id_pokemon INT,
+                              id_tipo INT,
+                              FOREIGN KEY (id_pokemon) REFERENCES Pokemon(id),
+                              FOREIGN KEY (id_tipo) REFERENCES Tipo(id)
+);
+
+CREATE TABLE IF NOT EXISTS Tipo (
+                                    id INT AUTO_INCREMENT PRIMARY KEY,
+                                    tipo VARCHAR(255) NOT NULL,
+    icon VARCHAR(255) NOT NULL);
+
+SELECT *
+FROM Pokemon AS P
+         JOIN Pokemon_Tipo AS v ON v.id_pokemon = p.id
+         JOIN Tipo AS t ON v.id_tipo = t.id;

@@ -1,10 +1,11 @@
 <?php
 
 //CONEXION CON LA BASE DE DATOS
-$servidor = "localhost";
+$servidor = "localhost:33067";
 $usuario = "root";
-$contraseña = "46521541";
+$contraseña = "";
 $baseDeDatos = "pokedex";
+
 
 $conexion = mysqli_connect($servidor, $usuario, $contraseña, $baseDeDatos);
 
