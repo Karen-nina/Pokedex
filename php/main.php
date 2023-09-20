@@ -125,6 +125,7 @@ function generarTarjetas($pokemones,$tipos, $pokemones_tipos){
     for ($i = 0; $i < sizeof($pokemones); $i++) {
         
         $numeroFormateado = sprintf("%03d", $pokemones[$i]['nro']);
+        generarPopÚpEliminar($pokemones[$i], $numeroFormateado);
         $resumen = extraerTexto($pokemones[$i]['informacion'], ".");
         ?>
         <div class="card border-0 ">
@@ -151,19 +152,18 @@ function generarTarjetas($pokemones,$tipos, $pokemones_tipos){
                 <div class="card_edicion card_div_price_buton d-flex pt-2">
                     <a href="./administrar.php?editar=<?php echo $pokemones[$i]['id'] ?>" class="btn btn-outline-info w-100 "
                         id="<?php echo $pokemones[$i]['id'] ?>">Editar contenido</a>
-                    <button type="button" class="btn  btn-outline-danger w-100" data-toggle="modal" data-target="#exampleModal">
+                    <button type="button" class="btn  btn-outline-danger w-100" data-toggle="modal" data-target="#exampleModal<?php echo $pokemones[$i]['id'] ?>">
                     Eliminar</button>
                 </div>
             </div>
         </div>
         <?php
-        generarPopÚpEliminar($pokemones[$i], $numeroFormateado);
     };
 }
 
 function generarPopÚpEliminar($pokemon, $numeroFormateado){
     ?>
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" 
+    <div class="modal fade" id="exampleModal<?php echo $pokemon['id'] ?>" tabindex="-1" role="dialog" 
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
