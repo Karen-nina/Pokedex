@@ -6,7 +6,7 @@ function abrirBdd(){
     $contraseña = "46521541";
     $baseDeDatos = "pokedex";
 
-     return mysqli_connect($servidor, $usuario, $contraseña, $baseDeDatos);
+    return mysqli_connect($servidor, $usuario, $contraseña, $baseDeDatos);
 }
 /*
 function cerrarBdd(){

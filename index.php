@@ -3,10 +3,10 @@
 <?php
 session_start();
     if (!$_GET) header('Location: index.php?pagina=1');
-    if ($_SERVER["REQUEST_METHOD"] !== "POST" && !isset($_SESSION['filtros'])) {
-        header('Location: index.php?pagina=1');
-        exit; // Asegúrate de salir del script después de la redirección
-    }
+    // if ($_SERVER["REQUEST_METHOD"] !== "POST" && !isset($_SESSION['filtros'])) {
+        
+        
+    // }
     include_once "./php/main.php";
     include_once "./php/paginacion.php";
     include_once "./php/aplicarFiltros.php";
