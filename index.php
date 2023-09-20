@@ -3,6 +3,10 @@
 <?php
 session_start();
     if (!$_GET) header('Location: index.php?pagina=1');
+    if ($_SERVER["REQUEST_METHOD"] !== "POST" && !isset($_SESSION['filtros'])) {
+        header('Location: index.php?pagina=1');
+        exit; // Asegúrate de salir del script después de la redirección
+    }
     include_once "./php/main.php";
     include_once "./php/paginacion.php";
     include_once "./php/aplicarFiltros.php";
@@ -88,11 +92,20 @@ session_start();
             </form>
         </div>
 
+        
+        <ul class="administrar">
+                <li id="administrar_li" class="gradient-background">
+                    <a href="./administrar.php?editar=0" >Agregar pokemon</a>
+                    <a href="./administrar.php?editar=0" class="imagen"><img src="./imagenes/icono_agregar.png" alt="" class="img_admin" id="editar"></a>
+                </li>
+        </ul>
+
         <section id="section_cards" class="d-flex justify-content-center  border-0 cards_home">
             <?php
             
             if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $pokemonesParaMostrar = aplicarFiltros($pokemones, $tipos, $pokemones_tipos);
+                $_GET['pagina'] = 1;
                 $_SESSION['filtros'] = $pokemonesParaMostrar;
             } elseif (isset($_SESSION['filtros'])) {
                 $pokemonesParaMostrar = $_SESSION['filtros'];
@@ -109,6 +122,7 @@ session_start();
             generarTarjetas($pokemonesParaMostrar,$tipos,$pokemones_tipos);
             ?>
         </section>
+
             <nav aria-label="Page navigation example" <?php echo ($cantidadDePaginas + 1 == 1)? 'style="display: none;"' : ""?>>
                 <ul class="pagination  gradient-background mb-5">
                     <li class="page-item2 " <?php echo ($_GET['pagina'] == 1)? 'style="display: none;"' : ""?>>

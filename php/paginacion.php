@@ -14,7 +14,7 @@ function aplicarPaginacion($pokemones, $elementosPorPagina){
     for ($i=$inicio; $i < $final; $i++) { 
         array_push($resultado, $pokemones[$i]);
     }
-
+    
     return $resultado;
 }
 
