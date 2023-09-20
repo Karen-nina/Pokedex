@@ -41,7 +41,7 @@ session_start();
         </div>
         <nav class="d-flex w-100 " id="nav_heder">
             <a href="./login.html">Iniciar sesion</a>
-            <a href="./singin.html">Registrarse</a>
+            <a href="singin.php">Registrarse</a>
         </nav>
         <!-- <nav class="d-flex" id="nav_heder2">
             <img src="./imagenes/profile.png" class="" id="img_perfil">
@@ -154,7 +154,7 @@ session_start();
         <p class="w-100">
             Programacion web II - Proyecto grupal Pokedex <br>
             Rocio Belen Crespo -
-            Karen NIna Coela -
+            Karen Nina Coela -
             Duilio Martin Rubio -
             Rocio crespo <br>
             © UNLaM 2018 v2.1.0. Todos los derechos reservados.
