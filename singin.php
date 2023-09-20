@@ -1,9 +1,8 @@
 <?php
 include_once "./php/registro.php";
 include_once "./php/usuario.php";
-$datosvalidos=false;
-$mensajeUsuario = '<cite title="Source Title">' . "El usuario debe tener al menos 6 caracteres y no tener espacios." . '</cite>';
-$mensajeClave = '<cite title="Source Title">' . "La clave debe tener al menos 6 caracteres, incluyendo al menos una letra mayúscula y al menos un número." . '</cite>';
+$mensajeUsuario = "El usuario debe tener al menos 6 caracteres y no tener espacios.";
+$mensajeClave = "La clave debe tener al menos 6 caracteres, incluyendo al menos una letra mayúscula y al menos un número.";
 
 if (isset($_POST['enviar'])) {
     $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : "";
@@ -14,13 +13,13 @@ if (isset($_POST['enviar'])) {
 
     if (!empty($usuario)) {
         if (!validarUsuario($usuario)) {
-            $mensajeUsuario = '<cite title="Source Title" style="color: red">' . "Usuario inválido. El usuario debe tener al menos 6 caracteres y no tener espacios." . '</cite>';
+            $mensajeUsuario = '<cite title="Source Title" style="color: red">' . "Usuario inválido. $mensajeUsuario" . '</cite>';
         }
     }
 
     if (!empty($clave)) {
         if (!validarClave($clave)) {
-            $mensajeClave = '<cite title="Source Title" style="color: red">' . "Clave inválida. La clave debe tener al menos 6 caracteres, incluyendo al menos una letra mayúscula y al menos un número." . '</cite>';
+            $mensajeClave = '<cite title="Source Title" style="color: red">' . "Clave inválida. $mensajeClave" . '</cite>';
         }
     }
 
@@ -34,7 +33,7 @@ if (isset($_POST['enviar'])) {
 
     if(validarClave($clave) && validarUsuario($usuario) && compararClaves($clave, $clave2) && buscarUsuario($usuario)){
         $nuevoUsuario = new Usuario($nombre, $apellido, $usuario, $clave);
-        echo registrarUsuario($nuevoUsuario);
+        registrarUsuario($nuevoUsuario);
         header("Location: http://localhost/pokedex/login.html");
         exit();
     }
@@ -87,7 +86,7 @@ if (isset($_POST['enviar'])) {
                 <input type="text" class="form-control" name="usuario" placeholder="Usuario" required>
             </div>
             <?php
-            echo $mensajeUsuario;
+            echo  '<cite title="Source Title"> '. $mensajeUsuario . '  </cite>';
             if(isset($errorExistente)){
                 echo $errorExistente;
             }
@@ -102,7 +101,7 @@ if (isset($_POST['enviar'])) {
                 </div>
             </div>
             <?php
-            echo $mensajeClave;
+            echo  '<cite title="Source Title"> '. $mensajeClave . '  </cite>';
             if(!empty($errorClaves)) {
                 echo $errorClaves;
             }

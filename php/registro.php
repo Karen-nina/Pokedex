@@ -1,7 +1,7 @@
 <?php
 include_once "main.php";
 include_once "usuario.php";
-
+include_once "conection.php";
 
 function validarClave($clave1){
     $regex = '/^(?=.*[A-Z])(?=.*\d).{6,}$/';
@@ -18,7 +18,7 @@ function compararClaves($clave1, $clave2){
 }
 
 function buscarUsuario($usuario){
-    global $conexion;
+    $conexion=abrirBdd();
     $query= "SELECT * FROM usuario WHERE usuario = '$usuario'";
     $resultado = mysqli_query($conexion, $query);
     if (mysqli_num_rows($resultado) > 0){
@@ -26,14 +26,15 @@ function buscarUsuario($usuario){
         } else {
         return true;
         }
+    $conexion->close();
     }
 
 function registrarUsuario($nuevoUsuario){
+    $conexion=abrirBdd();
     $nombre = $nuevoUsuario->getNombre();
     $apellido = $nuevoUsuario->getApellido();
     $usuario = $nuevoUsuario->getUsuario();
     $clave = $nuevoUsuario->getClave();
-    global $conexion;
     $querySQL = "INSERT INTO Usuario (nombre, apellido, usuario, clave) VALUES ('$nombre', '$apellido', '$usuario', '$clave')";
     if($conexion->query($querySQL)===true){
         echo 'Registro creado';
