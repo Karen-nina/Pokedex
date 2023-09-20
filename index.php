@@ -39,14 +39,28 @@ session_start();
         <div class="div_logo  ">
             <img id="logo" src="./imagenes/logo2.png" alt="logo">
         </div>
-        <nav class="d-flex w-100 " id="nav_heder">
-            <a href="./login.html">Iniciar sesion</a>
-            <a href="singin.php">Registrarse</a>
-        </nav>
-        <!-- <nav class="d-flex" id="nav_heder2">
+        <?php
+        if(isset($_SESSION['ingreso'])){
+            $usuario = $_SESSION['ingreso'];
+            ?>
+            <nav class="d-flex" id="nav_heder2">
             <img src="./imagenes/profile.png" class="" id="img_perfil">
-            <span>Rocio Crespo <br> rociocrespo200</span>
-        </nav> -->
+            <span><?php echo $usuario['nombre'] . " " . $usuario['apellido']. '<br>' . 
+                            $usuario['usuario']?></span>
+            <a href="./php/cerrarSession.php" class="cerrarSession">Cerrar Sesión</a>
+            </nav>
+            <?php
+    
+        }else{
+            ?>
+            <nav class="d-flex w-100 " id="nav_heder">
+            <a class="nav_a" href="./login.php">Iniciar sesion</a>
+            <a class="nav_a" href="singin.php">Registrarse</a>
+            </nav>
+            <?php
+        }
+        ?>
+        
     </header>
 
     <main class="d-flex flex-column align-items-center pb-5">

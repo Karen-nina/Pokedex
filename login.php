@@ -24,20 +24,29 @@
 <body>
 
     <main id="ingreso">
-        <form class=" p-5" id="ingreso">
+        <form class=" p-5" id="ingreso" method="post" name="ingreso">
             <div class="titulo_form">
                 <h2>Ingresa a tu cuenta</h2>
                 <cite title="Source Title">Si no tienes una cuenta <a  href="singin.php">Registrate</a> o vuelve a <a href="./index.php">inicio</a></cite>
             </div>
         
             <div class="form">
-                <input type="text" class="form-control" placeholder="Ingre su usuario">
+                <input type="text" name="userName" class="form-control" placeholder="Ingre su usuario" >
             </div>
             <div class="form">
-                <input type="password" class="form-control" placeholder="Ingrese contraseña">
+                <input type="password" name="password" class="form-control" placeholder="Ingrese contraseña">
             </div>
             
-            <button type="submit" class="btn btn-outline-info w-100">Registrarse</button>
+            <button type="submit" class="btn btn-outline-info w-100" name="ingreso">Ingresar</button>
+            <?php
+            include_once "./php/ingreso.php";
+
+            if(isset($_POST["userName"]) && isset($_POST["password"])){
+
+            }
+            
+            ingresar();
+            ?>
             <cite title="Source Title">* Al registrarse acepta los terminos y condiciones de la empresa, asi como el uso de cockies</cite>
         </form>
 

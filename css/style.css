@@ -116,8 +116,14 @@ header #nav_heder2 {
 header #nav_heder {
     margin: 0 20px;
 }
+.cerrarSession{
+    background-color: #9b0000a1;
+    padding: 10px 15px;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+}
 
-header nav a {
+.nav_a {
     font-family: 'Roboto', sans-serif;
     font-weight: 900;
     background-color: var(--color-principal);
