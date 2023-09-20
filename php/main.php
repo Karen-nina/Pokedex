@@ -1,19 +1,17 @@
 <?php
 
 //CONEXION CON LA BASE DE DATOS
-$servidor = "localhost";
-$usuario = "root";
-$contraseña = "46521541";
-$baseDeDatos = "pokedex";
 
-$conexion = mysqli_connect($servidor, $usuario, $contraseña, $baseDeDatos);
+include_once "conection.php";
 
+$conexion = abrirBdd();
 if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
 }
 $resultado1 = mysqli_query($conexion, "SELECT * FROM Pokemon");
 $resultado2 = mysqli_query($conexion, "SELECT * FROM Tipo");
 $resultado3 = mysqli_query($conexion, "SELECT * FROM Pokemon_tipo");
+
 
 $pokemones = array();
 $tipos = array();
@@ -192,6 +190,7 @@ function extraerTexto($texto, $discriminante)
     }
     return $resultado;
 }
+
 
 
 
