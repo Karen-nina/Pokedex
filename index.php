@@ -91,12 +91,14 @@ session_start();
                     <option value="Hada" <?php echo (isset($_POST["tipoPokemon"]) && $_POST['tipoPokemon'] == "Hada")? 'selected' : ""?>>Hada</option>
                 </select>
 
+
                 <select name="ordenar" id="ordenar" class="form-control">
-                    <option value="mayor">Mayor a menor N°</option>
-                    <option value="menor">Menor a mayor N°</option>
-                    <option value="ascendente">A --- Z</option>
-                    <option value="descendente">Z --- A</option>
+                    <option value="mayor" <?php echo (isset($_POST["ordenar"]) && $_POST['ordenar'] == "mayor") ? 'selected' : "" ?>>Mayor a menor N°</option>
+                    <option value="menor" <?php echo (isset($_POST["ordenar"]) && $_POST['ordenar'] == "menor") ? 'selected' : "" ?>>Menor a mayor N°</option>
+                    <option value="ascendente" <?php echo (isset($_POST["ordenar"]) && $_POST['ordenar'] == "ascendente") ? 'selected' : "" ?>>A --- Z</option>
+                    <option value="descendente" <?php echo (isset($_POST["ordenar"]) && $_POST['ordenar'] == "descendente") ? 'selected' : "" ?>>Z --- A</option>
                 </select>
+
 
                 <input id="input_search" name="input_search" class="form-control w-100 mr-sm-2" type="search"
                     placeholder="Buscar" aria-label="Search">
@@ -119,6 +121,39 @@ session_start();
             
             if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $pokemonesParaMostrar = aplicarFiltros($pokemones, $tipos, $pokemones_tipos);
+                // Obtener la opción de orden seleccionada
+                $orden = isset($_POST["ordenar"]) ? $_POST["ordenar"] : "mayor";
+
+                // Ordenar los Pokémon según la opción seleccionada
+                switch ($orden) {
+                case "menor":
+                // Ordenar de menor a mayor número
+                    usort($pokemonesParaMostrar, function ($a, $b) {
+                     return $a['id'] - $b['id'];
+                });
+                break;
+                 case "ascendente":
+                 // Ordenar alfabéticamente de A a Z
+                 usort($pokemonesParaMostrar, function ($a, $b) {
+                    return strcmp($a['nombre'], $b['nombre']);
+                     });
+                 break;
+                case "descendente":
+                 // Ordenar alfabéticamente de Z a A
+                 usort($pokemonesParaMostrar, function ($a, $b) {
+                 return strcmp($b['nombre'], $a['nombre']);
+                    });
+                 break;
+                 default:
+                // Ordenar de mayor a menor número (predeterminado)
+                 usort($pokemonesParaMostrar, function ($a, $b) {
+                     return $b['id'] - $a['id'];
+                });
+                }
+
+            $_GET['pagina'] = 1;
+            $_SESSION['filtros'] = $pokemonesParaMostrar;
+
                 $_GET['pagina'] = 1;
                 $_SESSION['filtros'] = $pokemonesParaMostrar;
             } elseif (isset($_SESSION['filtros'])) {
