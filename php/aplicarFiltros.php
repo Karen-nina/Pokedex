@@ -15,9 +15,43 @@ function aplicarFiltros($pokemones, $tipos, $pokemones_tipos){
 
         $resultado = filtrarPorNombre($busqueda, $resultado);
     }
+    if(isset($_POST["ordenar"])){
+        $resultado = ordenarPokemones($_POST["ordenar"], $resultado);
+    }
 
     return $resultado;
 
+}
+
+function ordenarPokemones($orden, $pokemonesParaMostrar){
+
+    // Ordenar los Pokémon según la opción seleccionada
+    switch ($orden) {
+    case "menor":
+    // Ordenar de menor a mayor número
+        usort($pokemonesParaMostrar, function ($a, $b) {
+        return $a['id'] - $b['id'];
+    });
+    break;
+    case "ascendente":
+     // Ordenar alfabéticamente de A a Z
+    usort($pokemonesParaMostrar, function ($a, $b) {
+        return strcmp($a['nombre'], $b['nombre']);
+        });
+    break;
+    case "descendente":
+     // Ordenar alfabéticamente de Z a A
+    usort($pokemonesParaMostrar, function ($a, $b) {
+    return strcmp($b['nombre'], $a['nombre']);
+        });
+    break;
+    default:
+    // Ordenar de mayor a menor número (predeterminado)
+    usort($pokemonesParaMostrar, function ($a, $b) {
+        return $b['id'] - $a['id'];
+    });
+    }
+    return $pokemonesParaMostrar;
 }
 
 function filtrarPorNombre($busqueda, $pokemones) {
@@ -55,6 +89,3 @@ function buscarPokemonPorId($id, $pokemones){
 }
 
 ?>
-
-
-
