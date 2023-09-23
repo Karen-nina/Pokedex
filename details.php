@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/animations.css">
+
     <link rel="stylesheet" href="./css/style.css">
     <link rel="icon" href="./imagenes/favicon.ico" type="image/vnd.microsoft.icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -22,9 +22,9 @@
 </head>
 
 <body>
-    <header class="d-flex bd-highlight gradient-background" id="header">
+    <header class="d-flex bd-highlight " id="header">
         <div class="div_logo">
-            <img id="logo" src="./imagenes/logo2.png" alt="logo">
+            <img id="logo" src="./imagenes/logo.png" alt="logo">
         </div>
         <nav class="d-flex w-100 " id="nav_heder">
             <a href="./login.html">Iniciar sesion</a>
@@ -45,7 +45,8 @@
                 Rocio Belen Crespo -
                 Karen NIna Coela -
                 Duilio Martin Rubio -
-                Rocio crespo
+                Rocio crespo <br>
+                © UNLaM 2018 v2.1.0. Todos los derechos reservados.
             </p>
     </footer>
 

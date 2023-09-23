@@ -1,11 +1,9 @@
 <?php
 
-//CONEXION CON LA BASE DE DATOS
-$servidor = "localhost:33067";
+$servidor = "localhost";
 $usuario = "root";
-$contraseña = "";
+$contraseña = "46521541";
 $baseDeDatos = "pokedex";
-
 
 $conexion = mysqli_connect($servidor, $usuario, $contraseña, $baseDeDatos);
 
@@ -32,6 +30,19 @@ while ($fila = mysqli_fetch_assoc($resultado3)) {
 }
 
 
+
+// for ($i=0; $i < sizeof($pokemones); $i++) { 
+//     echo $pokemones[$i]['nombre'];
+// };
+// echo "<br>";
+// for ($i=0; $i < sizeof($tipos); $i++) { 
+//     echo $tipos[$i]['tipo'];
+// };
+// echo "<br>";
+// for ($i=0; $i < sizeof($pokemones_tipos); $i++) { 
+//     echo $pokemones_tipos[$i]['id_pokemon'];
+// };
+
 function generarDetails($pokemones,$tipos, $pokemones_tipos)
 {
     // Obtén la URL actual
@@ -50,24 +61,19 @@ function generarDetails($pokemones,$tipos, $pokemones_tipos)
     foreach ($pokemones as $pokemon) {
         if ($pokemon['id'] == $id) {
             $calcularTotal = $pokemon['ataque']+$pokemon['defensa']+$pokemon['at_especial']+$pokemon['def_especial']+$pokemon['velocidad'];
-            $numeroFormateado = sprintf("%03d", $pokemon['nro']);
 ?>
 <div id="card_details">
     <div class="card border-0 w-100" id="card_details2">
         <img id="card_details_img" src="./imagenes/<?php echo $pokemon['imagen'] ?>" class="card-img-top" alt="...">
         <div class="card-body p-5 w-100" id="card-body_d">
             <div id="titulo_details" class="d-flex justify-content-between align-items-flex-start">
-                <h5 class="card-title"><?php echo $pokemon['nombre'] ?>
-                    <cite title="Source Title" id="subtitulo"> #<?php echo $numeroFormateado ?></cite>
-                </h5>
+                <h5 class="card-title"><?php echo $pokemon['nombre'] ?></h5>
                 <div class="d-flex gap-3" style="gap: 5px;">
                     <?php generarTarjetaDeTipo(obtenerTiposDeUnPokemon($pokemon, $tipos, $pokemones_tipos), true) ?>
                 </div>
             </div>
             <p class="card-text my-3"><?php echo $pokemon['informacion'] ?></p>
-            
-            <div class="w-100 div_tabla">
-            <table class="table ">
+            <table class="table">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
@@ -92,7 +98,7 @@ function generarDetails($pokemones,$tipos, $pokemones_tipos)
 
                 </tbody>
             </table>
-            </div>
+
         </div>
     </div>
 </div>
@@ -131,10 +137,10 @@ function generarTarjetas($pokemones,$tipos, $pokemones_tipos)
         $numeroFormateado = sprintf("%03d", $pokemones[$i]['nro']);
         $resumen = extraerTexto($pokemones[$i]['informacion'], ".");
         ?>
-<div class="card border-0 ">
+<div class="card border-0">
     <img class="card-img-top w-100" id="img_card" src="./imagenes/<?php echo $pokemones[$i]['imagen'] ?>"
         alt="<?php echo $pokemones[$i]['imagen'] ?>">
-    <div class="card-body d-flex flex-column justify-content-between ">
+    <div class="card-body d-flex flex-column justify-content-between">
         <div class="d-flex justify-content-between">
             <h5 class="card-title"><?php echo $pokemones[$i]['nombre'] ?>
                 <cite title="Source Title" id="subtitulo"> #<?php echo $numeroFormateado ?></cite>
