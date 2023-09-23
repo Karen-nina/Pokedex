@@ -3,17 +3,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $resultado = $pokemones; // Inicialmente, $resultado contiene todos los Pokémon
 
-    if (isset($_POST["tipoPokemon"])) {
+    if (isset($_POST["tipoPokemon"]) && $_POST["tipoPokemon"] != 'all') {
         $tipoPokemon = $_POST["tipoPokemon"];
-        
+
         $buscarTipoPorId = buscarTipo($tipos,'tipo' ,$tipoPokemon);
 
         $resultado = obtenerPokemonPorTipo($buscarTipoPorId, $pokemones_tipos, $pokemones);
     }
     if (isset($_POST["input_search"])) {
         $busqueda = $_POST["input_search"];
-        // Filtrar por nombre del Pokémon
+
         $resultado = filtrarPorNombre($busqueda, $resultado);
+    }
+    if(isset($_POST["ordenar"])){
+        $resultado = ordenarPokemones($_POST["ordenar"], $resultado);
     }
 
     if (empty($resultado)) {
@@ -21,6 +24,37 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } else {
         generarTarjetas($resultado,$tipos, $pokemones_tipos);
     }
+}
+
+function ordenarPokemones($orden, $pokemonesParaMostrar){
+
+    // Ordenar los Pokémon según la opción seleccionada
+    switch ($orden) {
+    case "menor":
+    // Ordenar de menor a mayor número
+        usort($pokemonesParaMostrar, function ($a, $b) {
+        return $a['id'] - $b['id'];
+    });
+    break;
+    case "ascendente":
+     // Ordenar alfabéticamente de A a Z
+    usort($pokemonesParaMostrar, function ($a, $b) {
+        return strcmp($a['nombre'], $b['nombre']);
+        });
+    break;
+    case "descendente":
+     // Ordenar alfabéticamente de Z a A
+    usort($pokemonesParaMostrar, function ($a, $b) {
+    return strcmp($b['nombre'], $a['nombre']);
+        });
+    break;
+    default:
+    // Ordenar de mayor a menor número (predeterminado)
+    usort($pokemonesParaMostrar, function ($a, $b) {
+        return $b['id'] - $a['id'];
+    });
+    }
+    return $pokemonesParaMostrar;
 }
 
 function filtrarPorNombre($busqueda, $pokemones) {
@@ -58,6 +92,3 @@ function buscarPokemonPorId($id, $pokemones){
 }
 
 ?>
-
-
-
