@@ -93,7 +93,7 @@ foreach ($pokemones as $pokemon) {
 
 function generarAdministrador(){
     ?>
-    <form action="" id="administrar">
+    <form action="" id="administrar" method="POST">
             <div class="infoBasica"> 
                 <div id="infoBasica_div1">
                     <img id="imagen_enviada" src="./imagenes/silueta.jpg" alt="">
@@ -106,15 +106,15 @@ function generarAdministrador(){
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="nombre">Numero en la pokedex</label>
-                            <input type="number" class="form-control" id="nombre" placeholder="Ingrese el numero">
+                            <input type="number" class="form-control" id="nro" name="nro"placeholder="Ingrese el numero" required>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="nombre"   placeholder="Ingrese el nombre">
+                            <input type="text" class="form-control" id="nombre"  name="nombre" placeholder="Ingrese el nombre" required>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="tipos_multiple">Tipo de pockemon</label>
-                            <select name="tipos_multiple" class="form-control w-100" id="tipos_multiple" multiple>
+                            <select name="tipos_multiple" class="form-control w-100" id="tipos_multiple" multiple required>
                                 <option value="Agua">Agua</option>
                                 <option value="Fuego">Fuego</option>
                                 <option value="Planta">Planta</option>
@@ -137,7 +137,7 @@ function generarAdministrador(){
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">Informacion del pokemon</label>
-                        <textarea class="form-control"  id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea class="form-control"  name="informacion" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
     
                 </div>
@@ -150,37 +150,44 @@ function generarAdministrador(){
                     
                     <div class="form-group col-md-2">
                         <label for="ps">Puntos de salud</label>
-                        <input type="number" class="form-control" id="ps"  placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
+                        <input type="number" class="form-control" id="ps"  placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="ataque">Puntos de ataque</label>
-                        <input type="number" class="form-control" id="ataque" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
+                        <input type="number" class="form-control" id="ataque" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="defensa">Puntos de defensa</label>
-                        <input type="number" class="form-control" id="defensa" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
+                        <input type="number" class="form-control" id="defensa" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="at_especial">Puntos de ataque especial</label>
-                        <input type="number" class="form-control" id="at_especial" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
+                        <input type="number" class="form-control" id="at_especial" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="def_especial">Puntos de defensa especial</label>
-                        <input type="number" class="form-control" id="def_especial" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
+                        <input type="number" class="form-control" id="def_especial" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="velocidad">Puntos de velocidad</label>
-                        <input type="number" class="form-control" id="velocidad" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
+                        <input type="number" class="form-control" id="velocidad" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
                     </div>                  
                 </div>
             </div>
 
 
+<<<<<<< HEAD
             
             <button id="boton_busqueda" class="btn" type="submit">Agregar pokemon </button>
             <br>
             <button class="btn btn-danger" onclick="volverAlIndex()">Cancelar</button>
         </form>
+=======
+
+        <button id="boton_agregar" class="btn btn-primary" type="submit" name="accion" value="agregar">Agregar Pokémon</button>
+
+    </form>
+>>>>>>> a2609cb1526fa13826f89e24cf9a6106dd1eda2a
     <?php
 }
 
@@ -193,3 +200,65 @@ function generarFiltrosDeUnaArray($tipos, $tiposSeleccionados){
         }
     }
 }
+
+if (isset($_POST['accion'])) {
+    $accion = $_POST['accion'];
+    agregarPokemon();
+    }
+function agregarPokemon (){
+
+        $validacion = validarPokemon();
+        if ($validacion){
+        $conexion=abrirBdd();
+        $nro = $_POST['nro'];
+        $nombre = $_POST['nombre'];
+        $tipos = implode(',', $_POST['tipos_multiple']); // Convertir el array de tipos en una cadena
+        $informacion = $_POST['informacion'];
+        $ps = $_POST['ps'];
+        $ataque = $_POST['ataque'];
+        $defensa = $_POST['defensa'];
+        $at_especial = $_POST['at_especial'];
+        $def_especial = $_POST['def_especial'];
+        $velocidad = $_POST['velocidad'];
+        $query= "INSERT INTO `Pokemon` (`nro`, `imagen`, `nombre`, `ps`, `ataque`, `defensa`, `at_especial`, `def_especial`, `velocidad`, `informacion`) VALUES
+        ('$nro', 'imagen.png', '$nombre', '$ps', '$ataque', '$defensa', '$at_especial', '$def_especial', '$velocidad', '$informacion')";
+
+        $resultado = mysqli_query($conexion, $query);
+        if ($resultado){
+            echo "pokemon agregado";
+        }else{
+            echo "no se pudo agregar";
+        }
+        $conexion->close();
+    }else{
+            echo "ocurrio un error al agregar pokemon";
+        }
+}
+
+function validarPokemon(){
+    $nroPokemon = $_POST['nro'];
+    $nombrePokemon = $_POST['nombre'];
+    $conexion = abrirBdd();
+    $query = "SELECT COUNT(*) as count FROM Pokemon WHERE nro = '$nroPokemon' AND nombre = '$nombrePokemon'";
+    $resultado = mysqli_query($conexion, $query);
+    if (mysqli_num_rows($resultado) > 0){
+        return false;
+    }else{
+        return true;
+    }
+    $conexion->close();
+}
+
+function editarPokemon (){
+
+
+}
+
+
+
+function eliminarPokemon(){
+
+
+}
+
+?>
