@@ -1,9 +1,9 @@
 <?php
 
 function abrirBdd(){
-    $servidor = "localhost";
+    $servidor = "localhost:33067";
     $usuario = "root";
-    $contraseña = "46521541";
+    $contraseña = "";
     $baseDeDatos = "pokedex";
 
     return mysqli_connect($servidor, $usuario, $contraseña, $baseDeDatos);
