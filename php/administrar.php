@@ -74,21 +74,17 @@ foreach ($pokemones as $pokemon) {
 
                 
                 <button id="boton_busqueda" class="btn" type="submit">Modificar pokemon </button>
-            <br>
-                 <button class="btn btn-danger" onclick="volverAlIndex()">Cancelar</button>
+            </br>
+
 
 
             </form>
+        <button class="btn btn-danger"  href="./index.php">Cancelar</button>
 
-        <script>
-            function volverAlIndex() {
-                window.location.href = "./index.php";
-            }
-        </script>
 
         <?php
+        }
     }
-}
 }
 
 function generarAdministrador(){
@@ -114,26 +110,28 @@ function generarAdministrador(){
                         </div>
                         <div class="form-group col-md-4">
                             <label for="tipos_multiple">Tipo de pockemon</label>
-                            <select name="tipos_multiple" class="form-control w-100" id="tipos_multiple" multiple required>
-                                <option value="Agua">Agua</option>
-                                <option value="Fuego">Fuego</option>
-                                <option value="Planta">Planta</option>
-                                <option value="Electrico">Electrico</option>
-                                <option value="Hielo">Hielo</option>
-                                <option value="Lucha">Lucha</option>
-                                <option value="Veneno">Veneno</option>
-                                <option value="Tierra">Tierra</option>
-                                <option value="Volador">Volador</option>
-                                <option value="Psiquico">Psiquico</option>
-                                <option value="Bicho">Bicho</option>
-                                <option value="Roca">Roca</option>
-                                <option value="Fantasma">Fantasma</option>
-                                <option value="Acero">Acero</option>
-                                <option value="Dragon">Dragon</option>
-                                <option value="Normal">Normal</option>
-                                <option value="Hada">Hada</option>
+                            <select name="tipos_multiple[]" class="form-control w-100" id="tipos_multiple" multiple>
+                                <option value="1">Planta</option>
+                                <option value="2">Fuego</option>
+                                <option value="3">Agua</option>
+                                <option value="4">Bicho</option>
+                                <option value="5">Normal</option>
+                                <option value="6">Volador</option>
+                                <option value="7">Veneno</option>
+                                <option value="8">Electrico</option>
+                                <option value="9">Tierra</option>
+                                <option value="10">Hada</option>
+                                <option value="11">Lucha</option>
+                                <option value="12">Psiquico</option>
+                                <option value="13">Roca</option>
+                                <option value="14">Fantasma</option>
+                                <option value="15">Hielo</option>
+                                <option value="16">Dragon</option>
+                                <option value="17">Acero</option>
                             </select>
+
                         </div>
+
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">Informacion del pokemon</label>
@@ -150,44 +148,37 @@ function generarAdministrador(){
                     
                     <div class="form-group col-md-2">
                         <label for="ps">Puntos de salud</label>
-                        <input type="number" class="form-control" id="ps"  placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
+                        <input type="number" class="form-control" id="ps" name="ps" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="ataque">Puntos de ataque</label>
-                        <input type="number" class="form-control" id="ataque" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
+                        <input type="number" class="form-control" id="ataque" name="ataque" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="defensa">Puntos de defensa</label>
-                        <input type="number" class="form-control" id="defensa" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
+                        <input type="number" class="form-control" id="defensa" name="defensa"  placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="at_especial">Puntos de ataque especial</label>
-                        <input type="number" class="form-control" id="at_especial" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
+                        <input type="number" class="form-control" id="at_especial" name="at_especial"  placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="def_especial">Puntos de defensa especial</label>
-                        <input type="number" class="form-control" id="def_especial" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
+                        <input type="number" class="form-control" id="def_especial" name="def_especial"  placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="velocidad">Puntos de velocidad</label>
-                        <input type="number" class="form-control" id="velocidad" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
+                        <input type="number" class="form-control" id="velocidad" name="velocidad" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
                     </div>                  
                 </div>
             </div>
 
 
-<<<<<<< HEAD
-            
-            <button id="boton_busqueda" class="btn" type="submit">Agregar pokemon </button>
-            <br>
-            <button class="btn btn-danger" onclick="volverAlIndex()">Cancelar</button>
-        </form>
-=======
 
         <button id="boton_agregar" class="btn btn-primary" type="submit" name="accion" value="agregar">Agregar Pokémon</button>
-
+        <a class="btn btn-danger" href="./index.php">Cancelar</a>
     </form>
->>>>>>> a2609cb1526fa13826f89e24cf9a6106dd1eda2a
+
     <?php
 }
 
@@ -205,14 +196,15 @@ if (isset($_POST['accion'])) {
     $accion = $_POST['accion'];
     agregarPokemon();
     }
-function agregarPokemon (){
 
-        $validacion = validarPokemon();
-        if ($validacion){
-        $conexion=abrirBdd();
+
+function agregarPokemon() {
+    $validacion = validarPokemon();
+
+    if ($validacion) {
+        $conexion = abrirBdd();
         $nro = $_POST['nro'];
         $nombre = $_POST['nombre'];
-        $tipos = implode(',', $_POST['tipos_multiple']); // Convertir el array de tipos en una cadena
         $informacion = $_POST['informacion'];
         $ps = $_POST['ps'];
         $ataque = $_POST['ataque'];
@@ -220,34 +212,65 @@ function agregarPokemon (){
         $at_especial = $_POST['at_especial'];
         $def_especial = $_POST['def_especial'];
         $velocidad = $_POST['velocidad'];
-        $query= "INSERT INTO `Pokemon` (`nro`, `imagen`, `nombre`, `ps`, `ataque`, `defensa`, `at_especial`, `def_especial`, `velocidad`, `informacion`) VALUES
-        ('$nro', 'imagen.png', '$nombre', '$ps', '$ataque', '$defensa', '$at_especial', '$def_especial', '$velocidad', '$informacion')";
 
-        $resultado = mysqli_query($conexion, $query);
-        if ($resultado){
-            echo "pokemon agregado";
-        }else{
-            echo "no se pudo agregar";
+        $tipos = $_POST['tipos_multiple'];
+
+        // Consulta para insertar en la tabla Pokemon
+        $queryPokemon = "INSERT INTO `Pokemon` (`nro`, `imagen`, `nombre`, `ps`, `ataque`, `defensa`, `at_especial`, `def_especial`, `velocidad`, `informacion`) VALUES
+            ('$nro', 'imagen.png', '$nombre', '$ps', '$ataque', '$defensa', '$at_especial', '$def_especial', '$velocidad', '$informacion')";
+
+        // Ejecuta la consulta para insertar en la tabla Pokemon
+        $resultadoPokemon = mysqli_query($conexion, $queryPokemon);
+
+        $idPokemon = mysqli_insert_id($conexion);
+        if ($resultadoPokemon) {
+            // recorre los tipos
+            foreach ($tipos as $tipo) {
+                $queryTipo = "INSERT INTO Pokemon_Tipo (id_pokemon, id_tipo) VALUES ('$idPokemon', '$tipo')";
+                echo $queryTipo . "\n";
+                $resultadoTipo = mysqli_query($conexion, $queryTipo);
+
+                if (!$resultadoTipo) {
+                    echo "Error al insertar tipo: " . mysqli_error($conexion);
+                }
+            }
+
+            echo "Pokemon agregado correctamente.";
+        } else {
+            echo "No se pudo agregar el Pokémon. Error de MySQL: " . mysqli_error($conexion);
         }
+
         $conexion->close();
-    }else{
-            echo "ocurrio un error al agregar pokemon";
-        }
+    } else {
+        echo "El nombre o número de Pokémon está repetido.";
+    }
 }
+
 
 function validarPokemon(){
     $nroPokemon = $_POST['nro'];
     $nombrePokemon = $_POST['nombre'];
     $conexion = abrirBdd();
-    $query = "SELECT COUNT(*) as count FROM Pokemon WHERE nro = '$nroPokemon' AND nombre = '$nombrePokemon'";
+    $query = "SELECT COUNT(*) as count FROM Pokemon WHERE nro = '$nroPokemon' OR nombre = '$nombrePokemon'";
     $resultado = mysqli_query($conexion, $query);
-    if (mysqli_num_rows($resultado) > 0){
+
+    if (!$resultado) {
+        echo "Error en la consulta: " . mysqli_error($conexion);
         return false;
-    }else{
-        return true;
     }
+
+    $fila = mysqli_fetch_assoc($resultado);
+    $conteo = $fila['count'];
+
+    if ($conteo > 0){
+        return false; // Ya existe un Pokémon con ese número o nombre.
+    } else {
+        return true; // No existe un Pokémon con ese número o nombre.
+    }
+
     $conexion->close();
 }
+
 
 function editarPokemon (){
 
