@@ -179,13 +179,21 @@ function generarPopÚpEliminar($pokemon, $numeroFormateado){
                         <p>Esta seguro de que desea eliminar este pokemon? Una vez realize esta accion no podra deshacer los cambios realizados</p>
                     </div>
                     <div class="modal-footer text-center">
-                        <button type="button" class="btn " data-dismiss="modal">Volver a inicio</button>
-                        <button type="button" class="btn btn-danger" id=" <?php echo $pokemon['id']?>">Elimina pokemon</button>
+                        <a class="btn btn-green" data-dismiss="modal" href="./index.php">Volver a inicio</a>
+
+                        <form action="eliminar_pokemon.php" method="POST">
+                            <input type="hidden" name="pokemon_id" value="<?php echo $pokemon['id']; ?>">
+                            <button type="submit" class="btn btn-danger">Eliminar Pokémon</button>
+                        </form>
+
                     </div>
                 </div>
             </div>
         </div>
     <?php
+    function eliminarPokemon ($id){
+
+    }
 }
 
 function obtenerTiposDeUnPokemon($pokemon, $tipos, $pokemones_tipos){

@@ -58,7 +58,7 @@
             Rocio Belen Crespo -
             Karen NIna Coela -
             Duilio Martin Rubio -
-            Rocio crespo
+            Emiliano Roldán
         </p>
     </footer>
     <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
