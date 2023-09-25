@@ -5,7 +5,7 @@ function generarAdministradorEditable($pokemones, $tipos, $pokemones_tipos){
 foreach ($pokemones as $pokemon) {
     if($pokemon['id'] == $_GET['editar']){
         ?>
-        <form action="" id="administrar">
+        <form action="" id="administrar" method="post">
                 <div class="infoBasica"> 
                     <div id="infoBasica_div1">
                         <img id="imagen_enviada" src="./imagenes/pokemones/<?php echo $pokemon['imagen']?>" alt="<?php echo $pokemon['imagen']?>">
@@ -26,7 +26,7 @@ foreach ($pokemones as $pokemon) {
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="tipos_multiple">Tipo de pockemon</label>
-                                <select name="tipos_multiple" class="form-control w-100" id="tipos_multiple" multiple>
+                                <select name="tipos_multiple[]" class="form-control w-100" id="tipos_multiple" multiple>
                                     <<?php generarFiltrosDeUnaArray($tipos, obtenerTiposDeUnPokemon($pokemon, $tipos, $pokemones_tipos));?>
                                 </select>
                             </div>
@@ -72,14 +72,12 @@ foreach ($pokemones as $pokemon) {
                 </div>
 
 
-                
-                <button id="boton_busqueda" class="btn" type="submit">Modificar pokemon </button>
+            <button id="boton_editar" class="btn btn-primary" type="submit" name="accion" value="editar">Modificar Pokémon</button>
             </br>
-
+            <a class="btn btn-danger" href="./index.php">Cancelar</a>
 
 
             </form>
-        <button class="btn btn-danger"  href="./index.php">Cancelar</button>
 
 
         <?php
@@ -194,8 +192,18 @@ function generarFiltrosDeUnaArray($tipos, $tiposSeleccionados){
 
 if (isset($_POST['accion'])) {
     $accion = $_POST['accion'];
-    agregarPokemon();
+    if ($accion === 'agregar') {
+        agregarPokemon();
+    } elseif ($accion === 'editar') {
+        if (isset($_GET['editar'])) {
+            editarPokemon($_GET['editar']);
+        } else {
+            echo "Falta el parámetro 'editar' en la URL.";
+        }
+    } else {
+        echo "Acción no válida.";
     }
+}
 
 
 function agregarPokemon() {
@@ -222,7 +230,7 @@ function agregarPokemon() {
         // Ejecuta la consulta para insertar en la tabla Pokemon
         $resultadoPokemon = mysqli_query($conexion, $queryPokemon);
 
-        $idPokemon = mysqli_insert_id($conexion);
+        $idPokemon = mysqli_insert_id($conexion); //traigo id recién creado
         if ($resultadoPokemon) {
             // recorre los tipos
             foreach ($tipos as $tipo) {
@@ -251,7 +259,7 @@ function validarPokemon(){
     $nroPokemon = $_POST['nro'];
     $nombrePokemon = $_POST['nombre'];
     $conexion = abrirBdd();
-    $query = "SELECT COUNT(*) as count FROM Pokemon WHERE nro = '$nroPokemon' OR nombre = '$nombrePokemon'";
+    $query = "SELECT COUNT(*) as count FROM `Pokemon` WHERE nro = '$nroPokemon' OR nombre = '$nombrePokemon'";
     $resultado = mysqli_query($conexion, $query);
 
     if (!$resultado) {
@@ -272,10 +280,85 @@ function validarPokemon(){
 }
 
 
-function editarPokemon (){
 
+function editarPokemon($id) {
+    $conexion = abrirBdd();
 
+    // Obtener los datos del Pokémon con el ID proporcionado desde la base de datos
+    $getPokemon = "SELECT * FROM `Pokemon` WHERE id = '$id'";
+    $resultado = mysqli_query($conexion, $getPokemon);
+
+    if ($resultado && mysqli_num_rows($resultado) > 0) {
+        $pokemonExistente = mysqli_fetch_assoc($resultado);
+        $nro = $pokemonExistente['nro'];
+        $nombre = $pokemonExistente['nombre'];
+        $informacion = $pokemonExistente['informacion'];
+        $ps = $pokemonExistente['ps'];
+        $ataque = $pokemonExistente['ataque'];
+        $defensa = $pokemonExistente['defensa'];
+        $at_especial = $pokemonExistente['at_especial'];
+        $def_especial = $pokemonExistente['def_especial'];
+        $velocidad = $pokemonExistente['velocidad'];
+
+        // También necesitas obtener los tipos del Pokémon existente
+        // $tiposExistente = obtenerTiposDeUnPokemon($pokemonExistente, $tipos, $pokemones_tipos);
+
+        //creamos la query
+        $query = "UPDATE `Pokemon` SET nro= $nro, nombre = '$nombre', informacion ='$informacion',  ps = $ps, ataque = $ataque,
+               defensa = $defensa, at_especial=$at_especial, def_especial = $def_especial, velocidad=$velocidad WHERE id = $id";
+
+        $modificarPokemonQuery = mysqli_query($conexion, $query);
+
+        if ($modificarPokemonQuery) {
+            // Obtén los tipos actualizados del formulario
+            $tiposActualizados = $_POST['tipos_multiple'];
+
+            // Borra los tipos anteriores del Pokémon
+            $queryBorrarTipos = "DELETE FROM `pokemon_tipo` WHERE id_pokemon = $id";
+            mysqli_query($conexion, $queryBorrarTipos);
+
+            // Inserta los nuevos tipos en la tabla pokemon_tipo
+            foreach ($tiposActualizados as $tipo) {
+                $tipo = trim($tipo); // Elimina espacios en blanco alrededor del nombre del tipo
+                $queryInsertarTipo = "INSERT INTO `pokemon_tipo` (id_pokemon, id_tipo) VALUES ($id, (SELECT id FROM `tipo` WHERE tipo = '$tipo'))";
+                mysqli_query($conexion, $queryInsertarTipo);
+            }
+
+            echo "Pokemon actualizado.";
+        } else {
+            echo "Se generó un error.";
+        }
+    } else {
+        echo "No se encontró el Pokémon.";
+    }
+
+    $conexion->close();
 }
+
+
+
+function traerValoresDeTipo($conexion, $tiposActualizados) {
+    $valoresDeTipo = array();
+
+    if (is_array($tiposActualizados)) {
+        foreach ($tiposActualizados as $tipo) {
+            $tipo = trim($tipo); // Elimina espacios en blanco alrededor del nombre del tipo
+            $query = "SELECT id FROM tipo WHERE tipo = '$tipo'";
+            $resultado = mysqli_query($conexion, $query);
+
+            if ($resultado && mysqli_num_rows($resultado) > 0) {
+                $fila = mysqli_fetch_assoc($resultado);
+                $idTipo = $fila['id'];
+                $valoresDeTipo[] = $idTipo;
+            }
+        }
+    }
+
+    return $valoresDeTipo;
+}
+
+
+
 
 
 

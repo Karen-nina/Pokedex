@@ -45,7 +45,7 @@
                 Rocio Belen Crespo -
                 Karen NIna Coela -
                 Duilio Martin Rubio -
-                Rocio crespo <br>
+                Emiliano Roldán <br>
                 © UNLaM 2018 v2.1.0. Todos los derechos reservados.
             </p>
     </footer>
