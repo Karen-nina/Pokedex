@@ -163,42 +163,72 @@ function generarTarjetas($pokemones,$tipos, $pokemones_tipos){
 
 function generarPopÚpEliminar($pokemon, $numeroFormateado){
     ?>
-    <div class="modal fade" id="exampleModal<?php echo $pokemon['id'] ?>" tabindex="-1" role="dialog" 
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
+    <div class="modal fade" id="exampleModal<?php echo $pokemon['id'] ?>" tabindex="-1" role="dialog"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
                     <h5 class="card-title">Eliminar: <?php echo $pokemon['nombre'] ?>
                         <cite title="Source Title" id="subtitulo"> #<?php echo $numeroFormateado ?></cite>
                     </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Esta seguro de que desea eliminar este pokemon? Una vez realize esta accion no podra deshacer los cambios realizados</p>
-                    </div>
-                    <div class="modal-footer text-center">
-                        <a class="btn btn-green" data-dismiss="modal" href="./index.php">Volver a inicio</a>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro de que desea eliminar este Pokémon? Una vez realice esta acción, no podrá deshacer los cambios realizados.</p>
+                </div>
+                <div class="modal-footer text-center">
 
-                        <form action="eliminar_pokemon.php" method="POST">
-                            <input type="hidden" name="pokemon_id" value="<?php echo $pokemon['id']; ?>">
-                            <button type="submit" class="btn btn-danger">Eliminar Pokémon</button>
-                        </form>
-
-                    </div>
+                    <button type="button" class="btn " data-dismiss="modal">Volver a inicio</button>
+<!--                <button type="button" name="botonEliminar" class="btn btn-danger" onclick="eliminarPokemon(<?php //echo $pokemon['id']?>)">Eliminar Pokémon</button>//-->
+                    <?php if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["eliminarPokemon"])) {
+                        include_once "conection.php";
+                        eliminarPokemon($_GET['id']); // Llamamos a la función si se ha hecho clic en el botón
+                    }?>
+                    <form action="main.php" method="get">
+                        <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
+                        <input type="submit" name="eliminarPokemon" class="btn btn-danger" value="eliminarPokemon">
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
     <?php
-    function eliminarPokemon ($id){
-
-    }
 }
+
+//function eliminarPokemon($id){
+//    $conexion = abrirBdd();
+//    $mensaje = "";
+//
+//    // Eliminar registros de la tabla Pokemon_Tipo
+//    $deleteTipoPokemon = "DELETE FROM Pokemon_Tipo WHERE id_pokemon = $id;";
+//    $resultadoTipo = mysqli_query($conexion, $deleteTipoPokemon);
+//    echo $deleteTipoPokemon;
+//    if($resultadoTipo){
+//        // Eliminar el registro de la tabla pokemon
+//        $deletePokemon = "DELETE FROM pokemon WHERE id = $id;";
+//        echo $deletePokemon;
+//        $resultadoPokemon = mysqli_query($conexion, $deletePokemon);
+//
+//        if($resultadoPokemon){
+//            $mensaje = "Se ha eliminado el Pokémon con éxito.";
+//        } else {
+//            $mensaje = "No se pudo eliminar el Pokémon.";
+//        }
+//    } else {
+//        $mensaje = "No se pudo eliminar el Pokémon y sus tipos asociados.";
+//    }
+//
+//    echo $mensaje;
+//}
+
+
+
 
 function obtenerTiposDeUnPokemon($pokemon, $tipos, $pokemones_tipos){
     $tiposDelPokemon = array();
-    for ($i=0; $i < sizeof($pokemones_tipos); $i++) { 
+    for ($i=0; $i < sizeof($pokemones_tipos); $i++) {
         if($pokemones_tipos[$i]['id_pokemon'] == $pokemon['id']){
             array_push($tiposDelPokemon, buscarTipo($tipos, 'id' ,$pokemones_tipos[$i]['id_tipo']));
         }
@@ -207,12 +237,12 @@ function obtenerTiposDeUnPokemon($pokemon, $tipos, $pokemones_tipos){
 }
 
 function buscarTipo($tipos, $propiedad, $valor_buscado){
-    for ($i=0; $i < sizeof($tipos); $i++) { 
+    for ($i=0; $i < sizeof($tipos); $i++) {
         if($tipos[$i][$propiedad] == $valor_buscado){
             return $tipos[$i];
         }
     }
-        
+
 }
 
 
