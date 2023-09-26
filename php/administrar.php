@@ -1,39 +1,62 @@
 <?php
 
+if (isset($_POST['accion'])) {
+    $accion = $_POST['accion'];
+    if ($accion === 'agregar') {
+        agregarPokemon();
+    } elseif ($accion === 'editar') {
+        if (isset($_GET['editar'])) {
+            editarPokemon($_GET['editar']);
+        }
+    }
+    unset($_SESSION['filtros']);
+    header('Location: ./index.php');
+}
+
+function eliminarPokemon(){
+    $id = $_GET['eliminar'];
+    $conn = abrirBdd();
+
+    mysqli_query($conn, "DELETE FROM Pokemon_Tipo WHERE id_pokemon = $id;");
+    mysqli_query($conn,"DELETE FROM Pokemon WHERE id = $id;");
+
+    header('Location: ./index.php');
+    $conn->close();
+}
 
 function generarAdministradorEditable($pokemones, $tipos, $pokemones_tipos){
 foreach ($pokemones as $pokemon) {
     if($pokemon['id'] == $_GET['editar']){
         ?>
-        <form action="" id="administrar" method="post">
+        <form action="" id="administrar" method="post" enctype="multipart/form-data">
                 <div class="infoBasica"> 
                     <div id="infoBasica_div1">
                         <img id="imagen_enviada" src="./imagenes/pokemones/<?php echo $pokemon['imagen']?>" alt="<?php echo $pokemon['imagen']?>">
                         <div id="editarImagen" >
                             <img src="./imagenes/icono_editar.png" alt="" class="w-100 p-5">
-                            <input type="file" id="fileInput" style="display: none;">
+                            <input type="file" id="fileInput" name="fileInput" style="display: none;">
                         </div> 
                     </div>
                     <div class="w-100">
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="nombre">Numero en la pokedex</label>
-                                <input type="number" class="form-control" id="nombre"  value="<?php echo $pokemon['nro']?>"  placeholder="Ingrese el numero">
+                                <input type="number" class="form-control" id="nro" name="nro"  value="<?php echo $pokemon['nro']?>"  placeholder="Ingrese el numero">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" id="nombre"  value="<?php echo $pokemon['nombre']?>"  placeholder="Ingrese el nombre">
+                                <input type="text" class="form-control" id="nombre" name="nombre"  value="<?php echo $pokemon['nombre']?>"  placeholder="Ingrese el nombre">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="tipos_multiple">Tipo de pockemon</label>
                                 <select name="tipos_multiple[]" class="form-control w-100" id="tipos_multiple" multiple>
-                                    <<?php generarFiltrosDeUnaArray($tipos, obtenerTiposDeUnPokemon($pokemon, $tipos, $pokemones_tipos));?>
+                                    <?php generarFiltrosDeUnaArray($tipos, obtenerTiposDeUnPokemon($pokemon, $tipos, $pokemones_tipos));?>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Example textarea</label>
-                            <textarea class="form-control"  id="exampleFormControlTextarea1" rows="3"><?php echo $pokemon['informacion']?></textarea>
+                            <textarea class="form-control"  id="informacion"  name="informacion" rows="3"><?php echo $pokemon['informacion']?></textarea>
                         </div>
         
                     </div>
@@ -46,33 +69,33 @@ foreach ($pokemones as $pokemon) {
                         
                         <div class="form-group col-md-2">
                             <label for="ps">Puntos de salud</label>
-                            <input type="number" class="form-control" id="ps" value="<?php echo $pokemon['ps']?>"  placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
+                            <input type="number" class="form-control" id="ps" name="ps" value="<?php echo $pokemon['ps']?>"  placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
                         </div>
                         <div class="form-group col-md-2">
                             <label for="ataque">Puntos de ataque</label>
-                            <input type="number" class="form-control" id="ataque" value="<?php echo $pokemon['ataque']?>" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
+                            <input type="number" class="form-control" id="ataque" name="ataque" value="<?php echo $pokemon['ataque']?>" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
                         </div>
                         <div class="form-group col-md-2">
                             <label for="defensa">Puntos de defensa</label>
-                            <input type="number" class="form-control" id="defensa" value="<?php echo $pokemon['defensa']?>" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
+                            <input type="number" class="form-control" id="defensa" name="defensa" value="<?php echo $pokemon['defensa']?>" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
                         </div>
                         <div class="form-group col-md-2">
                             <label for="at_especial">Puntos de ataque especial</label>
-                            <input type="number" class="form-control" id="at_especial" value="<?php echo $pokemon['at_especial']?>" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
+                            <input type="number" class="form-control" id="at_especial" name="at_especial" value="<?php echo $pokemon['at_especial']?>" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
                         </div>
                         <div class="form-group col-md-2">
                             <label for="def_especial">Puntos de defensa especial</label>
-                            <input type="number" class="form-control" id="def_especial" value="<?php echo $pokemon['def_especial']?>" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
+                            <input type="number" class="form-control" id="def_especial" name="def_especial" value="<?php echo $pokemon['def_especial']?>" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
                         </div>
                         <div class="form-group col-md-2">
                             <label for="velocidad">Puntos de velocidad</label>
-                            <input type="number" class="form-control" id="velocidad" value="<?php echo $pokemon['velocidad']?>" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
+                            <input type="number" class="form-control" id="velocidad" name="velocidad" value="<?php echo $pokemon['velocidad']?>" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
                         </div>                  
                     </div>
                 </div>
 
 
-            <button id="boton_editar" class="btn btn-primary" type="submit" name="accion" value="editar">Modificar Pokémon</button>
+            <button id="boton_editar" class="btn" type="submit" name="accion" value="editar">Modificar Pokémon</button>
             </br>
             <a class="btn btn-danger" href="./index.php">Cancelar</a>
 
@@ -87,20 +110,20 @@ foreach ($pokemones as $pokemon) {
 
 function generarAdministrador(){
     ?>
-    <form action="" id="administrar" method="POST">
+    <form action="" id="administrar" method="POST"  enctype="multipart/form-data">
             <div class="infoBasica"> 
                 <div id="infoBasica_div1">
                     <img id="imagen_enviada" src="./imagenes/silueta.jpg" alt="">
                     <div id="editarImagen" >
                         <img src="./imagenes/icono_editar.png" alt="" class="w-100 p-5">
-                        <input type="file" id="fileInput" style="display: none;">
+                        <input type="file" id="fileInput" name="fileInput" style="display: none;">
                     </div> 
                 </div>
                 <div class="w-100">
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="nombre">Numero en la pokedex</label>
-                            <input type="number" class="form-control" id="nro" name="nro"placeholder="Ingrese el numero" required>
+                            <input type="number" class="form-control" id="nro" name="nro" placeholder="Ingrese el numero" required>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="nombre">Nombre</label>
@@ -124,8 +147,8 @@ function generarAdministrador(){
                                 <option value="13">Roca</option>
                                 <option value="14">Fantasma</option>
                                 <option value="15">Hielo</option>
-                                <option value="16">Dragon</option>
-                                <option value="17">Acero</option>
+                                <option value="16">Acero</option>
+                                <option value="17">Dragon</option>
                             </select>
 
                         </div>
@@ -190,22 +213,6 @@ function generarFiltrosDeUnaArray($tipos, $tiposSeleccionados){
     }
 }
 
-if (isset($_POST['accion'])) {
-    $accion = $_POST['accion'];
-    if ($accion === 'agregar') {
-        agregarPokemon();
-    } elseif ($accion === 'editar') {
-        if (isset($_GET['editar'])) {
-            editarPokemon($_GET['editar']);
-        } else {
-            echo "Falta el parámetro 'editar' en la URL.";
-        }
-    } else {
-        echo "Acción no válida.";
-    }
-}
-
-
 function agregarPokemon() {
     $validacion = validarPokemon();
 
@@ -220,17 +227,26 @@ function agregarPokemon() {
         $at_especial = $_POST['at_especial'];
         $def_especial = $_POST['def_especial'];
         $velocidad = $_POST['velocidad'];
+        
+        if (isset($_FILES["fileInput"]) && $_FILES["fileInput"]["error"] === UPLOAD_ERR_OK) {
+            move_uploaded_file($_FILES["fileInput"]["tmp_name"] , "./imagenes/pokemones/" . $_FILES['fileInput']['name']);
+            $imagen = $_FILES['fileInput']['name'];
+        } else {
+            $imagen =  "silueta.png";
+
+        }
+        
+
 
         $tipos = $_POST['tipos_multiple'];
 
-        // Consulta para insertar en la tabla Pokemon
-        $queryPokemon = "INSERT INTO `Pokemon` (`nro`, `imagen`, `nombre`, `ps`, `ataque`, `defensa`, `at_especial`, `def_especial`, `velocidad`, `informacion`) VALUES
-            ('$nro', 'imagen.png', '$nombre', '$ps', '$ataque', '$defensa', '$at_especial', '$def_especial', '$velocidad', '$informacion')";
+        $queryPokemon =( "INSERT INTO `Pokemon` (`nro`, `imagen`, `nombre`, `ps`, `ataque`, `defensa`, `at_especial`, `def_especial`, `velocidad`, `informacion`) VALUES
+            ('$nro', '$imagen', '$nombre', '$ps', '$ataque', '$defensa', '$at_especial', '$def_especial', '$velocidad', '$informacion')");
 
-        // Ejecuta la consulta para insertar en la tabla Pokemon
+        
         $resultadoPokemon = mysqli_query($conexion, $queryPokemon);
 
-        $idPokemon = mysqli_insert_id($conexion); //traigo id recién creado
+        $idPokemon = mysqli_insert_id($conexion); 
         if ($resultadoPokemon) {
             // recorre los tipos
             foreach ($tipos as $tipo) {
@@ -243,17 +259,11 @@ function agregarPokemon() {
                 }
             }
 
-            echo "Pokemon agregado correctamente.";
-        } else {
-            echo "No se pudo agregar el Pokémon. Error de MySQL: " . mysqli_error($conexion);
         }
 
         $conexion->close();
-    } else {
-        echo "El nombre o número de Pokémon está repetido.";
     }
 }
-
 
 function validarPokemon(){
     $nroPokemon = $_POST['nro'];
@@ -263,7 +273,6 @@ function validarPokemon(){
     $resultado = mysqli_query($conexion, $query);
 
     if (!$resultado) {
-        echo "Error en la consulta: " . mysqli_error($conexion);
         return false;
     }
 
@@ -279,38 +288,38 @@ function validarPokemon(){
     $conexion->close();
 }
 
-
-
 function editarPokemon($id) {
     $conexion = abrirBdd();
 
-    // Obtener los datos del Pokémon con el ID proporcionado desde la base de datos
-    $getPokemon = "SELECT * FROM `Pokemon` WHERE id = '$id'";
-    $resultado = mysqli_query($conexion, $getPokemon);
+    $pokemon = mysqli_query($conexion, "SELECT * FROM `Pokemon` WHERE id = '$id'");
 
-    if ($resultado && mysqli_num_rows($resultado) > 0) {
-        $pokemonExistente = mysqli_fetch_assoc($resultado);
-        $nro = $pokemonExistente['nro'];
-        $nombre = $pokemonExistente['nombre'];
-        $informacion = $pokemonExistente['informacion'];
-        $ps = $pokemonExistente['ps'];
-        $ataque = $pokemonExistente['ataque'];
-        $defensa = $pokemonExistente['defensa'];
-        $at_especial = $pokemonExistente['at_especial'];
-        $def_especial = $pokemonExistente['def_especial'];
-        $velocidad = $pokemonExistente['velocidad'];
+    if (mysqli_num_rows($pokemon) > 0) {
+        $pokemonExistente = mysqli_fetch_assoc($pokemon);
+        $nro = $_POST["nro"];
+        $nombre = $_POST['nombre'];
+        $informacion = $_POST['informacion'];
+        $ps = $_POST['ps'];
+        $ataque = $_POST['ataque'];
+        $defensa = $_POST['defensa'];
+        $at_especial = $_POST['at_especial'];
+        $def_especial = $_POST['def_especial'];
+        $velocidad = $_POST['velocidad'];
 
-        // También necesitas obtener los tipos del Pokémon existente
-        // $tiposExistente = obtenerTiposDeUnPokemon($pokemonExistente, $tipos, $pokemones_tipos);
+        if (isset($_FILES["fileInput"]) && $_FILES["fileInput"]["error"] === UPLOAD_ERR_OK) {
+            move_uploaded_file($_FILES["fileInput"]["tmp_name"] , "./imagenes/pokemones/" . $_FILES['fileInput']['name']);
+            $imagen = $_FILES['fileInput']['name'];
+        } else {
+            $imagen =  $pokemonExistente['imagen'];
 
-        //creamos la query
-        $query = "UPDATE `Pokemon` SET nro= $nro, nombre = '$nombre', informacion ='$informacion',  ps = $ps, ataque = $ataque,
-               defensa = $defensa, at_especial=$at_especial, def_especial = $def_especial, velocidad=$velocidad WHERE id = $id";
+        }
+
+        $query = "UPDATE `pokedex`.`pokemon` SET `nro` = '$nro', `nombre` = '$nombre', `imagen` = '$imagen', `ps` = '$ps', `ataque` = '$ataque', 
+        `defensa` = '$defensa', `at_especial` = '$at_especial', `def_especial` = '$def_especial', `velocidad` = '$velocidad', `informacion` = '$informacion' WHERE (`id` = '$id');";
 
         $modificarPokemonQuery = mysqli_query($conexion, $query);
 
+
         if ($modificarPokemonQuery) {
-            // Obtén los tipos actualizados del formulario
             $tiposActualizados = $_POST['tipos_multiple'];
 
             // Borra los tipos anteriores del Pokémon
@@ -324,12 +333,9 @@ function editarPokemon($id) {
                 mysqli_query($conexion, $queryInsertarTipo);
             }
 
-            echo "Pokemon actualizado.";
-        } else {
-            echo "Se generó un error.";
         }
-    } else {
-        echo "No se encontró el Pokémon.";
+
+        
     }
 
     $conexion->close();
@@ -342,7 +348,7 @@ function traerValoresDeTipo($conexion, $tiposActualizados) {
 
     if (is_array($tiposActualizados)) {
         foreach ($tiposActualizados as $tipo) {
-            $tipo = trim($tipo); // Elimina espacios en blanco alrededor del nombre del tipo
+            $tipo = trim($tipo);
             $query = "SELECT id FROM tipo WHERE tipo = '$tipo'";
             $resultado = mysqli_query($conexion, $query);
 
@@ -357,14 +363,5 @@ function traerValoresDeTipo($conexion, $tiposActualizados) {
     return $valoresDeTipo;
 }
 
-
-
-
-
-
-function eliminarPokemon(){
-
-
-}
 
 ?>

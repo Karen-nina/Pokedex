@@ -1,28 +1,26 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+function aplicarFiltros($pokemones, $tipos, $pokemones_tipos){
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    $resultado = $pokemones; // Inicialmente, $resultado contiene todos los Pokémon
-
-    if (isset($_POST["tipoPokemon"]) && $_POST["tipoPokemon"] != 'all') {
-        $tipoPokemon = $_POST["tipoPokemon"];
-
-        $buscarTipoPorId = buscarTipo($tipos,'tipo' ,$tipoPokemon);
-
-        $resultado = obtenerPokemonPorTipo($buscarTipoPorId, $pokemones_tipos, $pokemones);
-    }
-    if (isset($_POST["input_search"])) {
-        $busqueda = $_POST["input_search"];
-
-        $resultado = filtrarPorNombre($busqueda, $resultado);
-    }
-    if(isset($_POST["ordenar"])){
-        $resultado = ordenarPokemones($_POST["ordenar"], $resultado);
-    }
-
-    if (empty($resultado)) {
-        ?><img src="./imagenes/mensaje.jpg" alt="" id="mensaje_notFound"><?php
-    } else {
-        generarTarjetas($resultado,$tipos, $pokemones_tipos);
+        $resultado = $pokemones; // Inicialmente, $resultado contiene todos los Pokémon
+    
+        if (isset($_POST["tipoPokemon"]) && $_POST["tipoPokemon"] != 'all') {
+            $tipoPokemon = $_POST["tipoPokemon"];
+    
+            $buscarTipoPorId = buscarTipo($tipos,'tipo' ,$tipoPokemon);
+    
+            $resultado = obtenerPokemonPorTipo($buscarTipoPorId, $pokemones_tipos, $pokemones);
+        }
+        if (isset($_POST["input_search"])) {
+            $busqueda = $_POST["input_search"];
+    
+            $resultado = filtrarPorNombre($busqueda, $resultado);
+        }
+        if(isset($_POST["ordenar"])){
+            $resultado = ordenarPokemones($_POST["ordenar"], $resultado);
+        }
+    
+        return $resultado;
     }
 }
 

@@ -29,7 +29,8 @@ while ($fila = mysqli_fetch_assoc($resultado3)) {
 }
 
 
-function generarDetails($pokemones,$tipos, $pokemones_tipos){
+function generarDetails($pokemones, $tipos, $pokemones_tipos)
+{
     // Obtén la URL actual
     $actualURL = $_SERVER['REQUEST_URI'];
 
@@ -45,24 +46,24 @@ function generarDetails($pokemones,$tipos, $pokemones_tipos){
     // Busca el Pokémon con el ID correspondiente en el array $pokemones
     foreach ($pokemones as $pokemon) {
         if ($pokemon['id'] == $id) {
-            $calcularTotal = $pokemon['ataque']+$pokemon['defensa']+$pokemon['at_especial']+$pokemon['def_especial']+$pokemon['velocidad'];
+            $calcularTotal = $pokemon['ataque'] + $pokemon['defensa'] + $pokemon['at_especial'] + $pokemon['def_especial'] + $pokemon['velocidad'];
             $numeroFormateado = sprintf("%03d", $pokemon['nro']);
-                ?>
-                <div id="card_details">
-                    <div class="card border-0 w-100" id="card_details2">
-                        <img id="card_details_img" src="./imagenes/pokemones/<?php echo $pokemon['imagen'] ?>" class="card-img-top" alt="...">
-                        <div class="card-body p-5 w-100" id="card-body_d">
-                            <div id="titulo_details" class="d-flex justify-content-between align-items-flex-start">
-                                <h5 class="card-title"><?php echo $pokemon['nombre'] ?>
-                                    <cite title="Source Title" id="subtitulo"> #<?php echo $numeroFormateado ?></cite>
-                                </h5>
-                                <div class="d-flex gap-3" style="gap: 5px;">
-                                    <?php generarTarjetaDeTipo(obtenerTiposDeUnPokemon($pokemon, $tipos, $pokemones_tipos), true) ?>
-                                </div>
+?>
+            <div id="card_details">
+                <div class="card border-0 w-100" id="card_details2">
+                    <img id="card_details_img" src="./imagenes/pokemones/<?php echo $pokemon['imagen'] ?>" class="card-img-top" alt="...">
+                    <div class="card-body p-5 w-100" id="card-body_d">
+                        <div id="titulo_details" class="d-flex justify-content-between align-items-flex-start">
+                            <h5 class="card-title"><?php echo $pokemon['nombre'] ?>
+                                <cite title="Source Title" id="subtitulo"> #<?php echo $numeroFormateado ?></cite>
+                            </h5>
+                            <div class="d-flex gap-3" style="gap: 5px;">
+                                <?php generarTarjetaDeTipo(obtenerTiposDeUnPokemon($pokemon, $tipos, $pokemones_tipos), true) ?>
                             </div>
-                            <p class="card-text my-3"><?php echo $pokemon['informacion'] ?></p>
-                            
-                            <div class="w-100 div_tabla">
+                        </div>
+                        <p class="card-text my-3"><?php echo $pokemon['informacion'] ?></p>
+
+                        <div class="w-100 div_tabla">
                             <table class="table ">
                                 <thead class="thead-dark">
                                     <tr>
@@ -78,59 +79,56 @@ function generarDetails($pokemones,$tipos, $pokemones_tipos){
                                 <tbody>
                                     <tr>
                                         <th scope="row">1</th>
-                                        <td><?php echo $pokemon['ataque']?></td>
-                                        <td><?php echo $pokemon['defensa']?></td>
-                                        <td><?php echo $pokemon['at_especial']?></td>
-                                        <td><?php echo $pokemon['def_especial']?></td>
-                                        <td><?php echo $pokemon['velocidad']?></td>
-                                        <td><?php echo $calcularTotal?></td>
+                                        <td><?php echo $pokemon['ataque'] ?></td>
+                                        <td><?php echo $pokemon['defensa'] ?></td>
+                                        <td><?php echo $pokemon['at_especial'] ?></td>
+                                        <td><?php echo $pokemon['def_especial'] ?></td>
+                                        <td><?php echo $pokemon['velocidad'] ?></td>
+                                        <td><?php echo $calcularTotal ?></td>
                                     </tr>
 
                                 </tbody>
                             </table>
-                            </div>
                         </div>
                     </div>
                 </div>
-    <?php
+            </div>
+        <?php
             break;
         }
     }
 }
 
-function generarTarjetaDeTipo($tipos, $conTexto){
-    foreach ($tipos as $tipo) { 
-        if($conTexto == true){
-            ?>
-                <div class="tipos_de_pokemon <?php echo $tipo['tipo'] ?>">
-                    <img class="img_tipos_de_pokemon" src="./imagenes/tipos/<?php echo $tipo['icon']?>">
-                    <span class=""> <?php echo $tipo['tipo'] ?></span>
-                </div>
-                <?php
-        }else{
-                            ?>
-                <div class="tipos_de_pokemon2 >">
-                    <img class="img_tipos_de_pokemon p-0" src="./imagenes/tipos/<?php echo $tipo['icon']?>">
-                </div>
-                <?php
+function generarTarjetaDeTipo($tipos, $conTexto)
+{
+    foreach ($tipos as $tipo) {
+        if ($conTexto == true) {
+        ?>
+            <div class="tipos_de_pokemon <?php echo $tipo['tipo'] ?>">
+                <img class="img_tipos_de_pokemon" src="./imagenes/tipos/<?php echo $tipo['icon'] ?>">
+                <span class=""> <?php echo $tipo['tipo'] ?></span>
+            </div>
+        <?php
+        } else {
+        ?>
+            <div class="tipos_de_pokemon2 >">
+                <img class="img_tipos_de_pokemon p-0" src="./imagenes/tipos/<?php echo $tipo['icon'] ?>">
+            </div>
+        <?php
         }
-    
     }
-
 }
 
-
-
-function generarTarjetas($pokemones,$tipos, $pokemones_tipos){
+function generarTarjetas($pokemones, $tipos, $pokemones_tipos)
+{
     for ($i = 0; $i < sizeof($pokemones); $i++) {
-        
+
         $numeroFormateado = sprintf("%03d", $pokemones[$i]['nro']);
         generarPopÚpEliminar($pokemones[$i], $numeroFormateado);
         $resumen = extraerTexto($pokemones[$i]['informacion'], ".");
         ?>
         <div class="card border-0 ">
-            <img class="card-img-top w-100" id="img_card" src="./imagenes/pokemones/<?php echo $pokemones[$i]['imagen'] ?>"
-                alt="<?php echo $pokemones[$i]['imagen'] ?>">
+            <img class="card-img-top w-100" id="img_card" src="./imagenes/pokemones/<?php echo $pokemones[$i]['imagen'] ?>" alt="<?php echo $pokemones[$i]['imagen'] ?>">
             <div class="card-body d-flex flex-column justify-content-between ">
                 <div class="d-flex justify-content-between">
                     <h5 class="card-title"><?php echo $pokemones[$i]['nombre'] ?>
@@ -140,31 +138,34 @@ function generarTarjetas($pokemones,$tipos, $pokemones_tipos){
                         <?php generarTarjetaDeTipo(obtenerTiposDeUnPokemon($pokemones[$i], $tipos, $pokemones_tipos), false) ?>
                     </div>
                 </div>
-                
+
 
                 <p class="card-text">
                     <?php echo $resumen ?>
                 </p>
                 <div class="card_botones card_div_price_buton d-flex">
-                    <a href="./details.php?id=<?php echo $pokemones[$i]['id'] ?>" class="btn w-100"
-                        id="<?php echo $pokemones[$i]['id'] ?>">View more ></a>
+                    <a href="./details.php?id=<?php echo $pokemones[$i]['id'] ?>" class="btn w-100" id="<?php echo $pokemones[$i]['id'] ?>">View more ></a>
                 </div>
-                <div class="card_edicion card_div_price_buton d-flex pt-2">
-                    <a href="./administrar.php?editar=<?php echo $pokemones[$i]['id'] ?>" class="btn btn-outline-info w-100 "
-                        id="<?php echo $pokemones[$i]['id'] ?>">Editar contenido</a>
-                    <button type="button" class="btn  btn-outline-danger w-100" data-toggle="modal" data-target="#exampleModal<?php echo $pokemones[$i]['id'] ?>">
-                    Eliminar</button>
-                </div>
+                <?php if (isset($_SESSION['ingreso'])) {
+                ?>
+                    <div class="card_edicion card_div_price_buton d-flex pt-2">
+                        <a href="./administrar.php?editar=<?php echo $pokemones[$i]['id'] ?>" class="btn btn-outline-info w-100 " id="<?php echo $pokemones[$i]['id'] ?>">Editar contenido</a>
+                        <button type="button" class="btn  btn-outline-danger w-100" data-toggle="modal" data-target="#exampleModal<?php echo $pokemones[$i]['id'] ?>">
+                            Eliminar</button>
+                    </div>
+                <?php
+                } ?>
+
             </div>
         </div>
-        <?php
+    <?php
     };
 }
 
-function generarPopÚpEliminar($pokemon, $numeroFormateado){
+function generarPopÚpEliminar($pokemon, $numeroFormateado)
+{
     ?>
-    <div class="modal fade" id="exampleModal<?php echo $pokemon['id'] ?>" tabindex="-1" role="dialog"
-         aria-hidden="true">
+    <div class="modal fade" id="exampleModal<?php echo $pokemon['id'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -181,72 +182,37 @@ function generarPopÚpEliminar($pokemon, $numeroFormateado){
                 <div class="modal-footer text-center">
 
                     <button type="button" class="btn " data-dismiss="modal">Volver a inicio</button>
-<!--                <button type="button" name="botonEliminar" class="btn btn-danger" onclick="eliminarPokemon(<?php //echo $pokemon['id']?>)">Eliminar Pokémon</button>//-->
-                    <?php if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["eliminarPokemon"])) {
-                        include_once "conection.php";
-                        eliminarPokemon($_GET['id']); // Llamamos a la función si se ha hecho clic en el botón
-                    }?>
-                    <form action="main.php" method="get">
-                        <input type="hidden" name="id" value="<?php echo $pokemon['id']; ?>">
-                        <input type="submit" name="eliminarPokemon" class="btn btn-danger" value="eliminarPokemon">
-                    </form>
+                    <a href="./administrar.php?eliminar=<?php echo $pokemon['id'] ?>" class="btn btn-danger">Eliminar Pokémon</a>
+
                 </div>
             </div>
         </div>
     </div>
-    <?php
+<?php
 }
 
-//function eliminarPokemon($id){
-//    $conexion = abrirBdd();
-//    $mensaje = "";
-//
-//    // Eliminar registros de la tabla Pokemon_Tipo
-//    $deleteTipoPokemon = "DELETE FROM Pokemon_Tipo WHERE id_pokemon = $id;";
-//    $resultadoTipo = mysqli_query($conexion, $deleteTipoPokemon);
-//    echo $deleteTipoPokemon;
-//    if($resultadoTipo){
-//        // Eliminar el registro de la tabla pokemon
-//        $deletePokemon = "DELETE FROM pokemon WHERE id = $id;";
-//        echo $deletePokemon;
-//        $resultadoPokemon = mysqli_query($conexion, $deletePokemon);
-//
-//        if($resultadoPokemon){
-//            $mensaje = "Se ha eliminado el Pokémon con éxito.";
-//        } else {
-//            $mensaje = "No se pudo eliminar el Pokémon.";
-//        }
-//    } else {
-//        $mensaje = "No se pudo eliminar el Pokémon y sus tipos asociados.";
-//    }
-//
-//    echo $mensaje;
-//}
-
-
-
-
-function obtenerTiposDeUnPokemon($pokemon, $tipos, $pokemones_tipos){
+function obtenerTiposDeUnPokemon($pokemon, $tipos, $pokemones_tipos)
+{
     $tiposDelPokemon = array();
-    for ($i=0; $i < sizeof($pokemones_tipos); $i++) {
-        if($pokemones_tipos[$i]['id_pokemon'] == $pokemon['id']){
-            array_push($tiposDelPokemon, buscarTipo($tipos, 'id' ,$pokemones_tipos[$i]['id_tipo']));
+    for ($i = 0; $i < sizeof($pokemones_tipos); $i++) {
+        if ($pokemones_tipos[$i]['id_pokemon'] == $pokemon['id']) {
+            array_push($tiposDelPokemon, buscarTipo($tipos, 'id', $pokemones_tipos[$i]['id_tipo']));
         }
     }
     return $tiposDelPokemon;
 }
 
-function buscarTipo($tipos, $propiedad, $valor_buscado){
-    for ($i=0; $i < sizeof($tipos); $i++) {
-        if($tipos[$i][$propiedad] == $valor_buscado){
+function buscarTipo($tipos, $propiedad, $valor_buscado)
+{
+    for ($i = 0; $i < sizeof($tipos); $i++) {
+        if ($tipos[$i][$propiedad] == $valor_buscado) {
             return $tipos[$i];
         }
     }
-
 }
 
-
-function extraerTexto($texto, $discriminante){
+function extraerTexto($texto, $discriminante)
+{
     $resultado = "";
     for ($i = 0; $i < strlen($texto); $i++) {
         if ($texto[$i] != $discriminante) $resultado .= $texto[$i];
@@ -254,8 +220,5 @@ function extraerTexto($texto, $discriminante){
     }
     return $resultado;
 }
-
-
-
 
 ?>
