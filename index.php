@@ -153,7 +153,7 @@ include_once "./php/aplicarFiltros.php";
             <?php
                 $pokemonesParaMostrar = $pokemones;
             }
-            $elementosPorPagina = 20;
+            $elementosPorPagina = 10;
             $cantidadDePaginas = floor(sizeof($pokemonesParaMostrar) / $elementosPorPagina);
             $pokemonesParaMostrar = aplicarPaginacion($pokemonesParaMostrar, $elementosPorPagina);
             generarTarjetas($pokemonesParaMostrar, $tipos, $pokemones_tipos);

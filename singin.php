@@ -34,7 +34,7 @@ if (isset($_POST['enviar'])) {
     if(validarClave($clave) && validarUsuario($usuario) && compararClaves($clave, $clave2) && buscarUsuario($usuario)){
         $nuevoUsuario = new Usuario($nombre, $apellido, $usuario, $clave);
         registrarUsuario($nuevoUsuario);
-        header("Location: http://localhost/pokedex/login.html");
+        header("Location: http://localhost/pokedex/login.php");
         exit();
     }
 }
