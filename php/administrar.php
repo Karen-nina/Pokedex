@@ -20,6 +20,7 @@ function eliminarPokemon(){
     mysqli_query($conn, "DELETE FROM Pokemon_Tipo WHERE id_pokemon = $id;");
     mysqli_query($conn,"DELETE FROM Pokemon WHERE id = $id;");
 
+    unset($_SESSION['filtros']);
     header('Location: ./index.php');
     $conn->close();
 }
@@ -38,16 +39,16 @@ foreach ($pokemones as $pokemon) {
                         </div> 
                     </div>
                     <div class="w-100">
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
+                        <div class="form-row" id="administrar_grupo1">
+                            <div class="form-group" id="administrar_grupo1_div">
                                 <label for="nombre">Numero en la pokedex</label>
                                 <input type="number" class="form-control" id="nro" name="nro"  value="<?php echo $pokemon['nro']?>"  placeholder="Ingrese el numero">
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group">
                                 <label for="nombre">Nombre</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre"  value="<?php echo $pokemon['nombre']?>"  placeholder="Ingrese el nombre">
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group">
                                 <label for="tipos_multiple">Tipo de pockemon</label>
                                 <select name="tipos_multiple[]" class="form-control w-100" id="tipos_multiple" multiple>
                                     <?php generarFiltrosDeUnaArray($tipos, obtenerTiposDeUnPokemon($pokemon, $tipos, $pokemones_tipos));?>
@@ -65,29 +66,29 @@ foreach ($pokemones as $pokemon) {
 
                 <div class="border-top py-4">
                     <h5>Caracteristicas base</h5>
-                    <div class="form-row align-items-end">
+                    <div class="form-row align-items-end"  id="caracteristicasBase">
                         
-                        <div class="form-group col-md-2">
+                        <div class="form-group">
                             <label for="ps">Puntos de salud</label>
                             <input type="number" class="form-control" id="ps" name="ps" value="<?php echo $pokemon['ps']?>"  placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group">
                             <label for="ataque">Puntos de ataque</label>
                             <input type="number" class="form-control" id="ataque" name="ataque" value="<?php echo $pokemon['ataque']?>" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group">
                             <label for="defensa">Puntos de defensa</label>
                             <input type="number" class="form-control" id="defensa" name="defensa" value="<?php echo $pokemon['defensa']?>" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group">
                             <label for="at_especial">Puntos de ataque especial</label>
                             <input type="number" class="form-control" id="at_especial" name="at_especial" value="<?php echo $pokemon['at_especial']?>" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group">
                             <label for="def_especial">Puntos de defensa especial</label>
                             <input type="number" class="form-control" id="def_especial" name="def_especial" value="<?php echo $pokemon['def_especial']?>" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group">
                             <label for="velocidad">Puntos de velocidad</label>
                             <input type="number" class="form-control" id="velocidad" name="velocidad" value="<?php echo $pokemon['velocidad']?>" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" >
                         </div>                  
@@ -95,9 +96,8 @@ foreach ($pokemones as $pokemon) {
                 </div>
 
 
-            <button id="boton_editar" class="btn" type="submit" name="accion" value="editar">Modificar Pokémon</button>
-            </br>
-            <a class="btn btn-danger" href="./index.php">Cancelar</a>
+                <button id="boton_agregar" class="btn" type="submit" name="accion" value="editar">Modificar Pokémon</button>
+            <a class="btn btn-danger mt-2" href="./index.php">Cancelar</a>
 
 
             </form>
@@ -120,16 +120,16 @@ function generarAdministrador(){
                     </div> 
                 </div>
                 <div class="w-100">
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
+                    <div class="form-row"  id="administrar_grupo1">
+                        <div class="form-group">
                             <label for="nombre">Numero en la pokedex</label>
                             <input type="number" class="form-control" id="nro" name="nro" placeholder="Ingrese el numero" required>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group">
                             <label for="nombre">Nombre</label>
                             <input type="text" class="form-control" id="nombre"  name="nombre" placeholder="Ingrese el nombre" required>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group">
                             <label for="tipos_multiple">Tipo de pockemon</label>
                             <select name="tipos_multiple[]" class="form-control w-100" id="tipos_multiple" multiple>
                                 <option value="1">Planta</option>
@@ -165,29 +165,29 @@ function generarAdministrador(){
 
             <div class="border-top py-4">
                 <h5>Caracteristicas base</h5>
-                <div class="form-row align-items-end">
+                <div class="form-row align-items-end"   id="caracteristicasBase">
                     
-                    <div class="form-group col-md-2">
+                    <div class="form-group ">
                         <label for="ps">Puntos de salud</label>
                         <input type="number" class="form-control" id="ps" name="ps" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group ">
                         <label for="ataque">Puntos de ataque</label>
                         <input type="number" class="form-control" id="ataque" name="ataque" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group ">
                         <label for="defensa">Puntos de defensa</label>
                         <input type="number" class="form-control" id="defensa" name="defensa"  placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group ">
                         <label for="at_especial">Puntos de ataque especial</label>
                         <input type="number" class="form-control" id="at_especial" name="at_especial"  placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group ">
                         <label for="def_especial">Puntos de defensa especial</label>
                         <input type="number" class="form-control" id="def_especial" name="def_especial"  placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group ">
                         <label for="velocidad">Puntos de velocidad</label>
                         <input type="number" class="form-control" id="velocidad" name="velocidad" placeholder="Ingrese un numero" min="1" pattern="^[0-9]+" required>
                     </div>                  
@@ -196,8 +196,8 @@ function generarAdministrador(){
 
 
 
-        <button id="boton_agregar" class="btn btn-primary" type="submit" name="accion" value="agregar">Agregar Pokémon</button>
-        <a class="btn btn-danger" href="./index.php">Cancelar</a>
+        <button id="boton_agregar" class="btn" type="submit" name="accion" value="agregar">Agregar Pokémon</button>
+        <a class="btn btn-danger mt-2" href="./index.php">Cancelar</a>
     </form>
 
     <?php

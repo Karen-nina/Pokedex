@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <header class="d-flex bd-highlight gradient-background" id="header">
+    <header class="bd-highlight gradient-background" id="header">
 
         <div class="div_logo  ">
             <a href="./index.php"><img id="logo" src="./imagenes/logo2.png" alt="logo"></a>

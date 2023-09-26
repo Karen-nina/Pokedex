@@ -64,7 +64,7 @@ function generarDetails($pokemones, $tipos, $pokemones_tipos)
                         <p class="card-text my-3"><?php echo $pokemon['informacion'] ?></p>
 
                         <div class="w-100 div_tabla">
-                            <table class="table ">
+                            <table class="table text-center">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">#</th>

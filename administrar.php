@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <header class="d-flex bd-highlight gradient-background" id="header">
+    <header class=" bd-highlight gradient-background" id="header">
 
         <div class="div_logo  ">
             <a href="./index.php"><img id="logo" src="./imagenes/logo2.png" alt="logo"></a>
@@ -50,7 +50,7 @@
 
     </header>
 
-    <main id="main_admin" class="m-5 p-5 d-flex flex-column align-items-center">
+    <main id="main_admin" class="m-5  d-flex flex-column align-items-center">
 
         <?php
         include_once "./php/main.php";
