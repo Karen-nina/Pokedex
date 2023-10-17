@@ -30,7 +30,25 @@ El proyecto se realizó con el objetivo de implementar los conceptos básicos de
 HTML, CSS, JavaScript, PHP, MySQL.
 
 ## Como ejecutar
-El proyecto debe estar dentro de la carpeta htdocs del xampp. La base de datos se encuentra en la carpeta /data
+El proyecto debe clonarse en la carpeta htdocs del xampp.
+```
+$ git clone https://github.com/rociocrespo200/Pokedex.git
+```
+Ver la pagina
+```
+localhost:(port)/Pokedex
+```
+La base de datos se encuentra en la carpeta /data/data_pokedex.sql, la conexion a la base esta configurada por defecto en el usuario "root" y contraseña vacia, si se quiere cambiar puede hacerlo desde el archivo php/conection.php  
+```
+function abrirBdd(){
+    $servidor = "localhost";
+    $usuario = "root";
+    $contraseña = "";
+    $baseDeDatos = "pokedex";
+
+    return mysqli_connect($servidor, $usuario, $contraseña, $baseDeDatos);
+}
+```
 
 ## Colaboradores
 - Rocio Belen Crespo - (https://www.github.com/rociocrespo200)
