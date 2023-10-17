@@ -7,7 +7,7 @@ Pokedex es una pagina web que permite a los usuarios consultar información de l
 * [Funcionalidades principales](#funcionalidades-principales)
 * [Objetivo](#objetivo)
 * [Screenshots](#screenshots)
-* [🛠 Lenguajes](🛠-Lenguajes)
+* [Lenguajes](#-Lenguajes)
 * [Como ejecutar](#como-ejecutar)
 * [Colaboradores](#colaboradores)
 
