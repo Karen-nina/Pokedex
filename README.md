@@ -11,7 +11,7 @@ Pokedex es una pagina web que permite a los usuarios consultar información de l
 * [Screenshots](#screenshots)
 * [Lenguajes](#-Lenguajes)
 * [Como ejecutar](#como-ejecutar)
-* [Colaboradores](#colaboradores)
+* [Autores](#autores)
 
 ## Funcionalidades principales
 - Buscar pokemones por tipo (agua-fuego-tierra, etc.)
@@ -53,7 +53,7 @@ function abrirBdd(){
 }
 ```
 
-## Colaboradores
+## Autores
 - Rocio Belen Crespo - https://www.github.com/rociocrespo200
 - Karen Nina Coela - https://github.com/Karen-nina
 - Duilio Martin Rubio - https://github.com/DuRubio
