@@ -25,8 +25,9 @@ Pokedex es una pagina web que permite a los usuarios consultar información de l
 El proyecto se realizó con el objetivo de implementar los conceptos básicos de PHP antes de iniciar un proyecto MVC.
 
 ## Screenshots
-![Logo](/imagenes/presentacion/espec.png)
+![Logo](/imagenes/presentacion/registrarse.png)
 ![Logo](/imagenes/presentacion/editar.png)
+![Logo](/imagenes/presentacion/espec.png)
 
 ## 🛠 Lenguajes
 HTML, CSS, JavaScript, PHP, MySQL.
