@@ -1,11 +1,13 @@
 # Pokedex
 
 Pokedex es una pagina web que permite a los usuarios consultar información de los distintos pokemones, y los usuarios registrados pueden agregar, eliminar o modificar pokemones.
+![Logo](/imagenes/presentacion/home.png)
 
 ## Indice
 * [Funcionalidades principales](#funcionalidades-principales)
 * [Objetivo](#objetivo)
 * [Screenshots](#screenshots)
+* [🛠 Lenguajes](🛠-Lenguajes)
 * [Como ejecutar](#como-ejecutar)
 * [Colaboradores](#colaboradores)
 
@@ -21,12 +23,14 @@ Pokedex es una pagina web que permite a los usuarios consultar información de l
 El proyecto se realizó con el objetivo de implementar los conceptos básicos de PHP antes de iniciar un proyecto MVC.
 
 ## Screenshots
-![Logo](/imagenes/presentacion/home.png)
 ![Logo](/imagenes/presentacion/espec.png)
 ![Logo](/imagenes/presentacion/editar.png)
 
+## 🛠 Lenguajes
+HTML, CSS, JavaScript, PHP, MySQL.
+
 ## Como ejecutar
-El proyecto debe estar dentro de la carpeta htdocs del xampp.
+El proyecto debe estar dentro de la carpeta htdocs del xampp. La base de datos se encuentra en la carpeta /data
 
 ## Colaboradores
 - Rocio Belen Crespo - [Perfil de GitHub](https://github.com/rociocrespo200)
