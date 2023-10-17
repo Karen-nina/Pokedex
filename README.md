@@ -7,7 +7,7 @@ Pokedex es una pagina web que permite a los usuarios consultar informacion de lo
 * [Como ejecutar] (#como-ejecutar)
 * [Colaboradores] (#colaboradores)
 
-##Funcionalidades principales
+## Funcionalidades principales
 - Buscar pokemones por tipo (agua-fuego-tierra-etc..)
 - Buscar pokemon por nombre
 - Registra usuarios como administradores
@@ -15,17 +15,17 @@ Pokedex es una pagina web que permite a los usuarios consultar informacion de lo
 - El usuario logueado: puede dar de baja un pokemon
 - El usuario logueado: puede editar un pokemon
 
-##Objetivo y screenshots
+## Objetivo y screenshots
 El proyecto se realizo con el objetivo de implementar los conceptos basicos de PHP antes de inciar un proyecto MVC.
-![Logo](Pokedex/imagenes/presentacion/home.png)
+![Logo](/imagenes/presentacion/home.png)
 ![Logo](Pokedex/imagenes/presentacion/espec.png)
 ![Logo](Pokedex/imagenes/presentacion/editar.png)
 
-##Como ejecutar
+## Como ejecutar
 El proyecto debe estar dentro de la carpeta htdocs del xampp
 
-##Colaboradores
-Rocio Belen Crespo - https://github.com/rociocrespo200
+## Colaboradores
+Rocio Belen Crespo - https://github.com/rociocrespo200 <br>
 Karen Nina Coela -
 Duilio Martin Rubio -
 Emiliano Javier Roldán -
