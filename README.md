@@ -33,7 +33,7 @@ HTML, CSS, JavaScript, PHP, MySQL.
 El proyecto debe estar dentro de la carpeta htdocs del xampp. La base de datos se encuentra en la carpeta /data
 
 ## Colaboradores
-- Rocio Belen Crespo - [Perfil de GitHub](https://github.com/rociocrespo200)
+- [Rocio Crespo] (https://www.github.com/rociocrespo200)
 - Karen Nina Coela
 - Duilio Martin Rubio
 - Emiliano Javier Roldán
