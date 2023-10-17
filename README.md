@@ -1,7 +1,8 @@
 # Pokedex
 
 Pokedex es una pagina web que permite a los usuarios consultar información de los distintos pokemones, y los usuarios registrados pueden agregar, eliminar o modificar pokemones.
-<br>
+
+
 ![Logo](/imagenes/presentacion/home.png)
 
 ## Indice
