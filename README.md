@@ -51,7 +51,7 @@ function abrirBdd(){
 ```
 
 ## Colaboradores
-- Rocio Belen Crespo - (https://www.github.com/rociocrespo200)
-- Karen Nina Coela
-- Duilio Martin Rubio
-- Emiliano Javier Roldán
+- Rocio Belen Crespo - https://www.github.com/rociocrespo200
+- Karen Nina Coela - https://github.com/Karen-nina
+- Duilio Martin Rubio - https://github.com/DuRubio
+- Emiliano Javier Roldán - https://github.com/EmilianoRold4n
